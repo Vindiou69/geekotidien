@@ -5,7 +5,7 @@
   "news": [
     {
       "verifiee": false,
-      "titre": "GTA VI dépasse le milliard de dollars de revenus avant même sa sortie (et s'offre déjà deux records historiques)",
+      "titre": "GTA VI, 1 milliard",
       "sous_titre": "Plus de 10 millions d'exemplaires selon Sensor Tower, sortie prévue le 19 novembre",
       "photo": "news/photo-2.jpg",
       "article": [
@@ -23,7 +23,7 @@
     },
     {
       "verifiee": false,
-      "titre": "Le Seigneur des Anneaux : le prochain film de la saga centré sur Gollum devrait bientôt se dévoiler",
+      "titre": "Gollum : tournage bouclé",
       "sous_titre": "Le tournage serait bouclé, selon Andy Serkis",
       "photo": "news/photo-3.jpg",
       "article": [
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "titre": "900 millions de galaxies : Euclid ouvre un trésor cosmique qui pourrait bouleverser notre vision de l'Univers",
+      "titre": "Euclid, 900 M galaxies",
       "sous_titre": "Le jeu de données DR1-Foundation couvre 14 % du relevé prévu sur six ans",
       "photo": "news/photo-4.jpg",
       "article": [
@@ -58,7 +58,7 @@
     },
     {
       "verifiee": false,
-      "titre": "OpenAI dépasse les 10 milliards de dollars de revenus, mais accumule des pertes colossales",
+      "titre": "OpenAI franchit 10 Md$",
       "sous_titre": "Chiffres rapportés par Bloomberg et le WSJ, non confirmés par l'entreprise",
       "photo": "news/photo-5.jpg",
       "article": [
@@ -76,7 +76,7 @@
     },
     {
       "verifiee": false,
-      "titre": "Free absorbe Free Mobile : quelles conséquences pour les 15,8 millions d'abonnés ?",
+      "titre": "Free absorbe Free Mobile",
       "sous_titre": "Free Mobile cesse d'exister comme société indépendante le 1er décembre 2026",
       "photo": "news/photo-6.jpg",
       "article": [
