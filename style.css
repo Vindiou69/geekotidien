@@ -361,3 +361,9 @@ dialog::-webkit-scrollbar{display:none; width:0; height:0}
   .vignette-titre{font-size:13px; line-height:1.25}
   .vignette-txt{padding:8px 9px 10px}
 }
+
+/* ---- Bloc contact ---- */
+.contact{margin:32px 0 28px; text-align:center; font-size:13px; color:var(--muted)}
+.contact a{color:var(--accent); font-weight:600}
+.contact-adresse{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center}
+.contact-adresse span{font-family:inherit; color:var(--fg)}

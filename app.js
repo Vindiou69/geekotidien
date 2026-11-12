@@ -221,6 +221,15 @@
     document.title = "Geekotidien";
   });
   champ.addEventListener("input", function () { rechercher(champ.value); });
+  // Bouton « Copier l'adresse » du bloc contact.
+  var copierContact = document.getElementById("copier-contact");
+  if (copierContact) copierContact.addEventListener("click", function () {
+    var adresse = "contact@geekotidien.fr";
+    var ok = function () { copierContact.textContent = "Adresse copiée"; };
+    var ko = function () { copierContact.textContent = adresse; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(adresse).then(ok, ko);
+    else ko();
+  });
   window.addEventListener("hashchange", function () { champ.value = ""; route(); });
   route();
 })();
