@@ -353,3 +353,11 @@ dialog::-webkit-scrollbar{display:none; width:0; height:0}
 /* Recherche : le champ s'allume au focus */
 #recherche{transition:border-bottom-color .25s ease, box-shadow .25s ease}
 #recherche:focus{box-shadow:0 6px 14px -10px var(--accent)}
+
+/* ---- Téléphone : deux vignettes par ligne ; la dernière, seule, reste centrée (le flex centre la ligne incomplète) ---- */
+@media (max-width: 600px){
+  .grille{gap:12px}
+  button.vignette{flex:0 0 calc(50% - 6px); width:calc(50% - 6px); max-width:calc(50% - 6px)}
+  .vignette-titre{font-size:13px; line-height:1.25}
+  .vignette-txt{padding:8px 9px 10px}
+}
