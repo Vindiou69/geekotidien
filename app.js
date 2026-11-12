@@ -77,7 +77,7 @@
     var lien = BASE + "/n/" + n.__date + "-" + n.__num + ".html";
     var zoneLien = document.createElement("div");
     zoneLien.className = "partage";
-    var bouton = el("button", "Copier le lien de cette news", "partage-bouton");
+    var bouton = el("button", "Copier le lien (Instagram, TikTok)", "partage-bouton");
     bouton.type = "button";
     bouton.addEventListener("click", function () {
       var ok = function () { bouton.textContent = "Lien copié"; };
@@ -86,6 +86,14 @@
       else ko();
     });
     zoneLien.appendChild(bouton);
+    // Partage direct : Facebook et LinkedIn ont un lien de partage web. Instagram et TikTok n'en ont pas : utiliser « Copier le lien ».
+    [["Partager sur Facebook", "https://www.facebook.com/sharer/sharer.php?u="],
+     ["Partager sur LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url="]].forEach(function (r) {
+      var a = document.createElement("a");
+      a.href = r[1] + encodeURIComponent(lien); a.target = "_blank"; a.rel = "noopener noreferrer";
+      a.className = "partage-bouton"; a.textContent = r[0];
+      zoneLien.appendChild(a);
+    });
     corps.appendChild(zoneLien);
 
     dlgContenu.appendChild(corps);

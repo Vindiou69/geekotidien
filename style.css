@@ -344,7 +344,7 @@ dialog[open]::backdrop{animation:fadeIn .3s ease both}
 .alerte-verif{color:var(--fg); border-left:3px solid #c2410c; padding:6px 10px; background-color:var(--chip); border-radius:4px; font-size:13px}
 .vignette-alerte{display:inline-block !important; align-self:flex-start; padding:2px 8px !important; margin-top:4px; font-size:11px !important; font-weight:700 !important; color:#c2410c; border:1px solid #c2410c; border-radius:999px; text-transform:uppercase}
 /* Bouton de copie du lien d'une news */
-.partage{padding:0 18px 20px; display:flex; justify-content:center}
+.partage{padding:0 18px 20px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px}
 /* Défilement de la news : le contenu reste faisable à la molette et au doigt, sans barre visible */
 dialog{scrollbar-width:none; -ms-overflow-style:none}
 dialog::-webkit-scrollbar{display:none; width:0; height:0}
