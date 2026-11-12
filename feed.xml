@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Geekotidien</title>
+    <link>https://geekotidien.fr/</link>
+    <description>Les news tech et geek du jour, sélectionnées chaque matin.</description>
+    <language>fr-FR</language>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://geekotidien.fr/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Cyberattaque iranienne en France</title>
+      <link>https://geekotidien.fr/n/2026-11-12-1.html</link>
+      <guid isPermaLink="true">https://geekotidien.fr/n/2026-11-12-1.html</guid>
+      <pubDate>Thu, 12 Nov 2026 07:00:00 GMT</pubDate>
+      <description>Des contrôleurs de froid visés dans environ 700 supermarchés, l'Iran accusé</description>
+    </item>
+    <item>
+      <title>Bruxelles vise TikTok</title>
+      <link>https://geekotidien.fr/n/2026-11-12-2.html</link>
+      <guid isPermaLink="true">https://geekotidien.fr/n/2026-11-12-2.html</guid>
+      <pubDate>Thu, 12 Nov 2026 07:00:00 GMT</pubDate>
+      <description>Conclusions préliminaires du DSA sur le fil « Pour toi »</description>
+    </item>
+    <item>
+      <title>OpenAI dévoile Control Room</title>
+      <link>https://geekotidien.fr/n/2026-11-12-3.html</link>
+      <guid isPermaLink="true">https://geekotidien.fr/n/2026-11-12-3.html</guid>
+      <pubDate>Thu, 12 Nov 2026 07:00:00 GMT</pubDate>
+      <description>Un coupe-circuit pour ses modèles de recherche internes</description>
+    </item>
+    <item>
+      <title>Reset gratuit des limites</title>
+      <link>https://geekotidien.fr/n/2026-11-12-4.html</link>
+      <guid isPermaLink="true">https://geekotidien.fr/n/2026-11-12-4.html</guid>
+      <pubDate>Thu, 12 Nov 2026 07:00:00 GMT</pubDate>
+      <description>Pour les abonnés Claude payants, à activer avant le 10 décembre 2026</description>
+    </item>
+    <item>
+      <title>Ocarina of Time bat un record</title>
+      <link>https://geekotidien.fr/n/2026-11-12-5.html</link>
+      <guid isPermaLink="true">https://geekotidien.fr/n/2026-11-12-5.html</guid>
+      <pubDate>Thu, 12 Nov 2026 07:00:00 GMT</pubDate>
+      <description>Plus de 5,2 millions d'exemplaires vendus en quatre jours</description>
+    </item>
+  </channel>
+</rss>

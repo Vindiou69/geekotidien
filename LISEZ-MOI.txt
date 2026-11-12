@@ -1,0 +1,27 @@
+SITE GEEKOTIDIEN (version de test)
+
+Pour voir le site : double-clique sur index.html.
+
+Structure :
+- data/editions/AAAA-MM-JJ.js : une édition par jour (titres, photos, articles, sources).
+- data/index.js : la liste des éditions, la plus récente en premier.
+- news/ : les visuels (couverture et photos des news).
+
+Ajouter une édition : créer un fichier data/editions/AAAA-MM-JJ.js, puis ajouter
+sa date en tête de la liste dans data/index.js. Ensuite, lancer :
+  node outils/generer.js
+Cela met à jour feed.xml (flux RSS) et les pages de partage n/ (une par news).
+
+Liens directs : #AAAA-MM-JJ/n ouvre la news n de l'édition (1 à 5). Le bouton
+« Copier le lien » donne l'adresse n/AAAA-MM-JJ-n.html, qui affiche l'aperçu
+pour les réseaux puis redirige vers la news.
+
+À régler avant la mise en ligne : l'adresse https://geekotidien.fr (dans
+app.js, outils/generer.js et index.html). Les aperçus sur les réseaux ne
+fonctionnent qu'une fois le domaine et le site en ligne.
+
+Archives : elles sont conservées un an. Au-delà, on supprime le fichier de l'édition
+et sa ligne dans data/index.js.
+
+Recherche : la barre de recherche cherche dans les titres, sous-titres et articles
+de toutes les éditions.

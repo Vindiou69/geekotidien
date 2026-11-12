@@ -1,0 +1,355 @@
+/* Feuille de style reprise de la page Geekotidien (même thème). */
+:root{
+  --bg:#f4f3ee; --fg:#15181b; --muted:#5b646d; --line:#d8d6cc;
+  --card:#ffffff; --accent:#1d8a66; --accent-ink:#ffffff; --chip:#e4f3ec; --warn:#9a5b00;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1214; --fg:#eef1ee; --muted:#9aa4ad; --line:#2a3137;
+    --card:#161b1f; --accent:#3eb489; --accent-ink:#0f1214; --chip:#17302a; --warn:#f0b35a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1214; --fg:#eef1ee; --muted:#9aa4ad; --line:#2a3137;
+  --card:#161b1f; --accent:#3eb489; --accent-ink:#0f1214; --chip:#17302a; --warn:#f0b35a;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  margin:0; background:var(--bg); color:var(--fg);
+  font:15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.wrap{
+  max-width:760px; margin:0 auto;
+  padding-block:24px 240px;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+h1,h2,h3{font-family:"Space Grotesk", Inter, system-ui, sans-serif; letter-spacing:-0.01em; margin:0; text-wrap:balance}
+h1{font-size:28px; line-height:1.15}
+h2{font-size:17px}
+h3{font-size:14px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); margin:22px 0 8px}
+.lede{color:var(--muted); margin:6px 0 0}
+.tag{display:inline-block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:600}
+.steps{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px}
+.steps span{font-size:13px; padding:5px 12px; border-radius:999px; border:1px solid var(--line); color:var(--muted)}
+.steps span.done{color:var(--accent); border-color:var(--accent)}
+.steps span.on{background:var(--accent); color:var(--accent-ink); border-color:var(--accent); font-weight:600}
+.chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:12px}
+.chip{font-size:12px; padding:3px 10px; border-radius:999px; color:#fff; background:var(--c, var(--accent))}
+.linkbtn{display:inline-block; padding:10px 14px; border-radius:8px; border:1px solid var(--line); color:var(--fg); text-decoration:none; font-weight:600}
+details.panel > summary{cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:8px}
+details.panel > summary::-webkit-details-marker{display:none}
+details.panel > summary::after{content:"▾"; color:var(--muted)}
+details.panel:not([open]) > summary::after{content:"▸"}
+details.panel[open] > summary{margin-bottom:12px}
+.brand{display:flex; gap:16px; align-items:center; flex-wrap:wrap}
+.brand img{width:72px; height:72px; border-radius:50%; flex:0 0 auto; box-shadow:0 0 0 3px var(--chip)}
+.brand h1{margin-top:4px}
+.panel{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-top:20px}
+label.file{display:block; font-weight:600; margin-bottom:8px}
+input[type="file"]{font:inherit; color:var(--fg); max-width:100%}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:12px}
+input[type="search"], select, textarea{
+  font:inherit; color:var(--fg); background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; padding:9px 11px; min-width:0;
+}
+input[type="search"]{flex:1 1 220px}
+select{flex:0 1 200px}
+textarea{width:100%; min-height:150px; resize:vertical; font-size:13px; line-height:1.45}
+.status{color:var(--muted); font-size:13px; margin:18px 0 0; min-height:1.3em}
+.count{color:var(--muted); font-variant-numeric:tabular-nums; margin:4px 0 8px; font-size:13px}
+.list{display:flex; flex-direction:column; gap:8px}
+.item{
+  display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start;
+  background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; cursor:pointer;
+}
+.item:has(input:checked){border-color:var(--accent); background:var(--chip)}
+.item.disabled{opacity:.5; cursor:not-allowed}
+.item input{width:18px; height:18px; margin:3px 0 0; accent-color:var(--accent)}
+.item .title{font-weight:600; overflow-wrap:anywhere}
+.item .meta{color:var(--muted); font-size:12.5px; margin-top:3px; overflow-wrap:anywhere}
+.item .meta span + span::before{content:" · "}
+.empty{color:var(--muted); padding:24px 4px}
+.basket{margin-top:16px}
+.basket-head{display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap}
+.dots{display:flex; gap:6px; margin-top:6px}
+.dots i{width:22px; height:6px; border-radius:3px; background:var(--line)}
+.dots i.on{background:var(--accent)}
+button{
+  font:inherit; font-weight:600; border:0; border-radius:8px; padding:10px 14px; cursor:pointer;
+  background:var(--accent); color:var(--accent-ink);
+}
+button.ghost{background:transparent; color:var(--fg); border:1px solid var(--line)}
+button:disabled{opacity:.4; cursor:not-allowed}
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.note{color:var(--warn); font-size:13px; margin:6px 0 0; min-height:1.2em}
+.step-note{color:var(--muted); font-size:13px; margin:8px 0 0; min-height:1.2em}
+.steps a{font-size:13px; padding:5px 12px; border-radius:999px; border:1px solid var(--line); color:var(--muted); text-decoration:none}
+.steps a.on{background:var(--accent); color:var(--accent-ink); border-color:var(--accent); font-weight:600}
+/* Animations : apparition des étapes, survol, compteur, chargement, coche finale, bouton prêt. */
+.panel:not([hidden]){animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+.item{transition:transform .18s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease}
+.item:not(.disabled):hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(0,0,0,.08)}
+.item:has(input:checked) input{animation:pop .35s cubic-bezier(.2,.8,.3,1.3)}
+@keyframes pop{from{transform:scale(.6)} to{transform:scale(1)}}
+.dots i{transition:background .3s ease, transform .3s ease}
+.dots i.on{animation:pulse .5s ease}
+@keyframes pulse{0%{transform:scale(.7)} 50%{transform:scale(1.2)} 100%{transform:scale(1)}}
+.status.loading::after{
+  content:""; display:block; height:3px; margin-top:8px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent); background-size:200% 100%;
+  animation:sweep 1.2s linear infinite;
+}
+@keyframes sweep{from{background-position:200% 0} to{background-position:-200% 0}}
+/* Indicateur de chargement sur une zone de message pendant un travail en cours (classe busy). */
+.busy::after{
+  content:""; display:block; height:3px; margin-top:8px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent); background-size:200% 100%;
+  animation:sweep 1.2s linear infinite;
+}
+.note.done{color:var(--accent); animation:rise .5s ease both}
+.step-note.flash, .note.flash{animation:rise .3s ease both}
+button#canva:not(:disabled), button#enq-prep:not(:disabled), button#epo-prep:not(:disabled){animation:softpulse 1.6s ease-out 2}
+@keyframes softpulse{0%{box-shadow:0 0 0 0 var(--accent)} 70%{box-shadow:0 0 0 12px transparent} 100%{box-shadow:0 0 0 0 transparent}}
+.steps a, .steps span{transition:background .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease}
+.steps a.on, .steps span.on{box-shadow:0 0 0 4px var(--chip); animation:stepPop .45s ease}
+@keyframes stepPop{0%{transform:scale(.92)} 60%{transform:scale(1.06)} 100%{transform:scale(1)}}
+button{transition:transform .15s ease, opacity .2s ease, background .2s ease}
+button:not(:disabled):hover{transform:translateY(-1px)}
+progress{accent-color:var(--accent); transition:all .3s ease}
+@media (prefers-reduced-motion: reduce){*{transition:none!important; animation:none!important}}
+
+/* ---- Style terminal : typographie monospace, quadrillage, scanlines, messages d'état ---- */
+body{font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size:14px;
+  background-image:none}
+/* Fond « matrix » : colonnes de 0 et de 1 qui descendent depuis le haut, dans la couleur d'accent du site. Les cartes restent pleines par-dessus. */
+#matrix{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
+.wrap{position:relative; z-index:1}
+h1,h2,h3{font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; letter-spacing:-0.02em}
+h1::after{content:"_"; color:var(--accent); animation:blink 1s step-end infinite}
+h2::before{content:"// "; color:var(--accent)}
+h3::before{content:"> "; color:var(--accent)}
+.panel{border-radius:4px; border-left:3px solid var(--accent)}
+textarea, input[type=search]{font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size:12.5px; line-height:1.5; border-left:3px solid var(--accent)}
+.note::before{content:"> "; color:var(--accent)}
+.note:empty::before{content:none}
+.note.done::before{content:"[OK] "}
+.steps a{font-family:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; letter-spacing:.02em}
+.steps a:hover{animation:glitch .4s steps(2) 1}
+.steps a.on{box-shadow:0 0 14px rgba(62,180,137,.35)}
+#tab-news::before{content:"▤ "}
+#tab-enquete::before{content:"⌕ "}
+#tab-epopee::before{content:"∞ "}
+/* Cartes, boutons secondaires et champs restent pleins : le quadrillage ne se voit que sur le fond du site. */
+button.ghost, .panel, .item, .linkbtn, textarea, input[type=search], select, .steps a:not(.on), .steps span:not(.on){background-color:var(--card)}
+
+/* ---- Finitions : titres soulignés, cartes légèrement ombrées, champs soulignés, badges de réussite ---- */
+h2{display:inline-block; padding-bottom:4px; border-bottom:2px solid var(--accent)}
+h2::before{content:none}
+.panel{box-shadow:0 1px 3px rgba(0,0,0,.08)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .panel{box-shadow:0 0 0 1px rgba(62,180,137,.12), 0 6px 20px rgba(0,0,0,.35)} }
+:root[data-theme="dark"] .panel{box-shadow:0 0 0 1px rgba(62,180,137,.12), 0 6px 20px rgba(0,0,0,.35)}
+input[type=search], textarea{border:0; border-bottom:2px solid var(--line); border-radius:0; border-left:0; background-color:transparent; padding-left:2px}
+input[type=search]:focus, textarea:focus{border-bottom-color:var(--accent); outline:none}
+.note.done{display:inline-block; padding:4px 10px; border-radius:999px; background:var(--chip)}
+
+/* ---- Bandeau latéral : logo en haut, nom à 180° en vertical ---- */
+.side{position:fixed; left:0; top:0; bottom:0; width:100px; z-index:20; display:flex; flex-direction:column; align-items:center; gap:20px;
+  padding-top:max(20px, env(safe-area-inset-top, 0px)); background-color:var(--card); border-right:1px solid var(--line)}
+.side img{width:84px; height:84px; border-radius:50%; box-shadow:0 0 0 3px var(--chip); flex:0 0 auto}
+.side span{writing-mode:vertical-rl; transform:rotate(180deg); font-size:40px; line-height:1; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); white-space:nowrap}
+.wrap{padding-left:calc(max(16px, env(safe-area-inset-left, 0px)) + 100px)}
+/* Liens vers les réseaux, en bas de la bande. */
+.side .socials{margin-top:auto; display:flex; flex-direction:column; align-items:center; gap:14px; padding-bottom:max(20px, env(safe-area-inset-bottom, 0px))}
+.side .socials a{width:40px; height:40px; display:grid; place-items:center; border-radius:50%; color:var(--accent); border:1px solid var(--line); background-color:var(--card); transition:transform .2s ease, border-color .2s ease}
+.side .socials a:hover, .side .socials a:focus-visible{transform:translateY(-2px); border-color:var(--accent); outline:none}
+.side .socials svg{width:22px; height:22px}
+/* Logo Canva : le « C » est un masque de la couleur d'accent, comme les autres icônes (il suit le thème). */
+/* Mise en page web : contenu plus large, les 5 étapes sur une seule ligne de même largeur. */
+.wrap{max-width:1040px}
+#steps{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px}
+#steps span{text-align:center; white-space:nowrap; padding:8px 10px}
+@media (max-width:760px){ #steps{grid-template-columns:repeat(2, 1fr)} }
+/* Sélecteur de fichier de la veille : bouton arrondi, nom du fichier affiché à côté (l'entrée native reste cachée et fonctionnelle). */
+.filepick{position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:10px}
+.visually{position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; clip:rect(0 0 0 0); pointer-events:none}
+.filebtn{display:inline-block; font-size:13px; font-weight:600; color:var(--accent); background-color:var(--card); border:1px solid var(--accent); border-radius:999px; padding:7px 16px; cursor:pointer; transition:background-color .2s ease, color .2s ease}
+.filebtn:hover{background-color:var(--accent); color:var(--accent-ink)}
+input.visually:focus-visible + .filebtn{outline:2px solid var(--accent); outline-offset:2px}
+.filepick .step-note{margin:0}
+input[type=file]{color:var(--muted); font-size:13px; max-width:100%}
+input[type=file]::file-selector-button{font:inherit; font-size:13px; font-weight:600; color:var(--accent); background-color:var(--card);
+  border:1px solid var(--accent); border-radius:999px; padding:7px 16px; margin-right:12px; cursor:pointer; transition:background-color .2s ease, color .2s ease}
+input[type=file]::file-selector-button:hover{background-color:var(--accent); color:var(--accent-ink)}
+.side .socials i.glyph{width:17px; height:17px; display:block; background-color:var(--accent);
+  -webkit-mask:url("canva-c.png") center / contain no-repeat; mask:url("canva-c.png") center / contain no-repeat}
+@keyframes blink{50%{opacity:0}}
+@keyframes glitch{0%{transform:translate(0)} 25%{transform:translate(-2px,0)} 50%{transform:translate(2px,0); text-shadow:2px 0 var(--accent)} 100%{transform:translate(0)}}
+/* ---- Site public : cartes des news ---- */
+.news-date{color:var(--muted); font-size:13px; margin:14px 0 6px}
+.news-card{background-color:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:4px; padding:14px 16px; margin-top:10px; box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.news-card h2{font-size:16px}
+.news-card p{margin:8px 0 0; overflow-wrap:anywhere}
+.news-card .meta{color:var(--muted); font-size:12.5px; margin-top:6px}
+.news-card a{color:var(--accent); font-weight:600; text-decoration:none}
+.news-card a:hover{text-decoration:underline}
+.lede{margin:0 0 12px}
+.empty{color:var(--muted)}
+/* ---- Téléphone : bandeau latéral plus fin, pour laisser la place au texte ---- */
+@media (max-width:600px){
+  .side{width:56px; gap:12px; padding-top:max(12px, env(safe-area-inset-top, 0px))}
+  .side img{width:40px; height:40px; box-shadow:0 0 0 2px var(--chip)}
+  .side span{font-size:20px; letter-spacing:.08em}
+  .side .socials{gap:10px; padding-bottom:max(12px, env(safe-area-inset-bottom, 0px))}
+  .side .socials a{width:30px; height:30px}
+  .side .socials svg{width:16px; height:16px}
+  .wrap{padding-left:calc(max(16px, env(safe-area-inset-left, 0px)) + 56px); padding-right:16px}
+  h1{font-size:22px}
+}
+
+/* ---- Bandeau horizontal en haut (ordinateur et téléphone) ---- */
+.side{display:none}
+.wrap{max-width:860px; padding-top:0; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); padding-bottom:80px}
+.topbar{position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  margin:0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding:10px max(16px, env(safe-area-inset-left, 0px));
+  background-color:var(--card); border-bottom:1px solid var(--line); padding-top:max(10px, env(safe-area-inset-top, 0px))}
+.brand-line{display:flex; align-items:center; gap:12px; min-width:0}
+.brand-line img{width:40px; height:40px; border-radius:50%; box-shadow:0 0 0 2px var(--chip); flex:0 0 auto}
+.brand-name{font-size:22px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); white-space:nowrap}
+.topbar .socials{display:flex; gap:10px}
+.topbar .socials a{width:34px; height:34px; display:grid; place-items:center; border-radius:50%; color:var(--accent); border:1px solid var(--line); background-color:var(--card); transition:transform .2s ease, border-color .2s ease}
+.topbar .socials a:hover, .topbar .socials a:focus-visible{transform:translateY(-2px); border-color:var(--accent); outline:none}
+.topbar .socials svg{width:18px; height:18px}
+.intro{margin-top:24px}
+.intro h1{font-size:30px}
+@media (max-width:600px){
+  .brand-name{font-size:18px}
+  .brand-line img{width:34px; height:34px}
+  .intro h1{font-size:24px}
+}
+
+/* ---- Images et textes des news ---- */
+.cover-img{display:block; width:100%; max-width:560px; margin:8px auto 4px; border-radius:6px}
+.news-img{display:block; width:100%; height:auto; border-radius:6px; margin-bottom:12px}
+.news-sub{color:var(--accent); font-weight:600}
+.news-plus{color:var(--accent); font-weight:600; font-size:14px}
+.news-card{padding:14px 16px}
+
+/* ---- Grille de vignettes et détail ---- */
+.grille{display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px; margin-top:12px}
+button.vignette{display:block; width:100%; padding:0; text-align:left; background-color:var(--card); color:var(--fg); border:1px solid var(--line); border-radius:8px; overflow:hidden; cursor:pointer; font:inherit; box-shadow:0 1px 3px rgba(0,0,0,.08); transition:transform .18s ease, border-color .2s ease}
+button.vignette:hover, button.vignette:focus-visible{transform:translateY(-2px); border-color:var(--accent); outline:none}
+button.vignette img{display:block; width:100%; aspect-ratio:1/1; object-fit:cover}
+button.vignette span{display:block; padding:10px 12px 12px; font-weight:600; font-size:14px; line-height:1.3; overflow-wrap:anywhere}
+dialog{width:calc(100% - 32px); max-width:640px; max-height:calc(100vh - 32px); padding:0; border:1px solid var(--line); border-radius:12px; background-color:var(--card); color:var(--fg); overflow:auto; box-shadow:0 12px 40px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.detail-img{display:block; width:100%; height:auto}
+.detail-corps{padding:16px 18px 20px}
+.detail-corps h2{font-size:18px; margin:0 0 6px}
+.detail-corps p{margin:8px 0 0; overflow-wrap:anywhere}
+.detail-close{position:sticky; top:8px; float:right; margin:8px 8px 0 0; width:36px; height:36px; border-radius:50%; padding:0; font-size:22px; line-height:1; background-color:var(--card); color:var(--fg); border:1px solid var(--line); z-index:2}
+.cover-img{margin-bottom:8px}
+
+/* ---- Vignettes : photo simple, titre en vert, sous-titre ---- */
+button.vignette img{aspect-ratio:2/1; object-fit:cover; width:100%}
+.vignette-txt{padding:10px 12px 12px; display:flex; flex-direction:column; gap:4px}
+.vignette-titre{display:block; color:var(--accent); font-weight:700; font-size:15px; line-height:1.25; overflow-wrap:anywhere}
+.vignette-sous{display:block; color:var(--muted); font-size:13px; line-height:1.3; overflow-wrap:anywhere}
+button.vignette:not(:has(img)) .vignette-txt{padding-top:14px}
+.detail-titre{color:var(--accent)}
+.detail-sous{color:var(--muted); font-weight:600}
+.detail-texte{font-size:15px; line-height:1.6; color:var(--fg)}
+.detail-img{aspect-ratio:2/1; object-fit:cover}
+
+/* ---- Couverture en bannière 2:1 (même format que les news) ---- */
+.cover-img{display:block; width:100%; max-width:none; aspect-ratio:2/1; object-fit:cover; margin:8px 0 16px; border-radius:8px}
+/* ---- Corrections : vignettes alignées en haut, détail sans bande, croix verte ---- */
+button.vignette{display:flex; flex-direction:column; justify-content:flex-start; align-items:stretch; height:100%}
+.grille{align-items:stretch}
+dialog{position:relative}
+.detail-img{display:block; width:100%; aspect-ratio:2/1; object-fit:cover; margin:0}
+.detail-close{position:absolute; top:10px; right:10px; float:none; margin:0; width:38px; height:38px; border-radius:50%; padding:0; font-size:24px; line-height:1; display:grid; place-items:center; background-color:var(--accent); color:var(--accent-ink); border:0; z-index:3; box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.detail-close:hover{filter:brightness(1.1)}
+/* ---- Croix verte nue, sans rond ---- */
+.detail-close{background:transparent; color:var(--accent); border:0; border-radius:0; box-shadow:none; width:auto; height:auto; padding:0 4px; font-size:34px; font-weight:700; line-height:1; text-shadow:0 0 6px rgba(0,0,0,.6)}
+.detail-close:hover{filter:brightness(1.2)}
+
+/* ---- Sources dans l'article ---- */
+.detail-sources{margin-top:18px; padding-top:12px; border-top:1px solid var(--line); font-size:13px}
+.detail-src-titre{color:var(--accent); font-weight:700; margin:0 0 6px !important}
+.detail-sources p{margin:4px 0 !important}
+.detail-sources a{color:var(--accent); text-decoration:none; overflow-wrap:anywhere}
+.detail-sources a:hover{text-decoration:underline}
+/* ---- Vignettes centrées et textes justifiés ---- */
+.grille{display:flex; flex-wrap:wrap; justify-content:center; gap:14px}
+button.vignette{flex:0 1 240px; width:240px; max-width:100%; text-align:center}
+.vignette-txt{align-items:center}
+.vignette-titre{text-align:center}
+.detail-texte{text-align:justify; hyphens:auto; -webkit-hyphens:auto}
+/* ---- Titres en majuscules ---- */
+.vignette-titre, .detail-titre{text-transform:uppercase}
+
+/* ---- Navigation, recherche et archives ---- */
+.onglets{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 8px}
+.onglets a{font-size:13px; padding:6px 14px; border-radius:999px; border:1px solid var(--line); color:var(--muted); text-decoration:none; background-color:var(--card)}
+.onglets a.on, .onglets a:hover{background:var(--accent); color:var(--accent-ink); border-color:var(--accent); font-weight:600}
+.recherche-bloc{margin:6px 0 14px}
+#recherche{width:100%; font:inherit; font-size:14px; color:var(--fg); background-color:transparent; border:0; border-bottom:2px solid var(--line); padding:8px 2px; outline:none}
+#recherche:focus{border-bottom-color:var(--accent)}
+.edition-titre{margin:18px 0 10px}
+.archive-item{display:block; background-color:var(--card); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:6px; padding:12px 14px; margin-bottom:10px; color:var(--fg); text-decoration:none}
+.archive-item:hover{border-color:var(--accent)}
+.archive-date{display:block; color:var(--accent); font-weight:700; font-size:14px; text-transform:capitalize; margin-bottom:4px}
+.archive-titres{display:block; color:var(--muted); font-size:13px; overflow-wrap:anywhere}
+.resultat{margin-bottom:18px}
+.resultat .grille{margin-top:6px}
+/* ---- Vignettes de même hauteur sur une même ligne ---- */
+.grille{align-items:stretch}
+button.vignette{height:auto; align-self:stretch}
+.vignette-txt{flex:1 1 auto}
+
+/* ---- Animations du site (même esprit que la page de sélection) ----
+   Entrées décalées, fondus, glitch au survol, curseur clignotant, barre de chargement.
+   Tout est coupé par la règle prefers-reduced-motion plus haut. */
+@keyframes fadeIn{from{opacity:0} to{opacity:1}}
+@keyframes dlgIn{from{opacity:0; transform:translateY(12px) scale(.97)} to{opacity:1; transform:none}}
+/* Vignettes : apparition en cascade (backwards : le survol garde ensuite la main) */
+button.vignette{animation:rise .5s cubic-bezier(.2,.7,.2,1) backwards; animation-delay:calc(min(var(--i,0), 12) * 70ms)}
+button.vignette:hover .vignette-titre{animation:glitch .4s steps(2) 1}
+/* Détail de la news : ouverture en fondu, fond qui s'assombrit */
+dialog[open]{animation:dlgIn .3s cubic-bezier(.2,.8,.3,1) both}
+dialog[open]::backdrop{animation:fadeIn .3s ease both}
+/* Titre d'édition : curseur qui clignote, comme le titre de la page de sélection */
+.edition-titre::after{content:"_"; color:var(--accent); animation:blink 1s step-end infinite}
+/* Archives et résultats de recherche : arrivée en cascade */
+.archive-item{animation:rise .45s cubic-bezier(.2,.7,.2,1) backwards; animation-delay:calc(min(var(--i,0), 12) * 60ms)}
+.resultat{animation:rise .45s cubic-bezier(.2,.7,.2,1) backwards; animation-delay:calc(min(var(--i,0), 12) * 60ms)}
+.archive-item:hover{transform:translateX(3px); transition:transform .2s ease, border-color .2s ease}
+/* Couverture : apparition douce */
+.cover-img{animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards}
+/* Logo et onglets */
+.brand-line img{animation:pop .5s cubic-bezier(.2,.8,.3,1.3) backwards}
+.onglets a.on{animation:stepPop .45s ease}
+/* Chargement : barre de lumière qui balaie la ligne */
+.loader{position:relative; overflow:hidden}
+.loader::after{content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--accent), transparent); background-size:200% 100%;
+  animation:sweep 1.2s linear infinite}
+/* Marquage des news moins vérifiées */
+.alerte-verif{color:var(--fg); border-left:3px solid #c2410c; padding:6px 10px; background-color:var(--chip); border-radius:4px; font-size:13px}
+.vignette-alerte{display:inline-block !important; align-self:flex-start; padding:2px 8px !important; margin-top:4px; font-size:11px !important; font-weight:700 !important; color:#c2410c; border:1px solid #c2410c; border-radius:999px; text-transform:uppercase}
+/* Bouton de copie du lien d'une news */
+.partage{padding:0 18px 20px; display:flex; justify-content:center}
+/* Défilement de la news : le contenu reste faisable à la molette et au doigt, sans barre visible */
+dialog{scrollbar-width:none; -ms-overflow-style:none}
+dialog::-webkit-scrollbar{display:none; width:0; height:0}
+.partage-bouton{font:inherit; font-size:13px; font-weight:600; color:var(--accent); background-color:var(--card); border:1px solid var(--accent); border-radius:999px; padding:7px 16px; cursor:pointer; transition:background-color .2s ease, color .2s ease}
+.partage-bouton:hover{background-color:var(--accent); color:var(--accent-ink)}
+/* Recherche : le champ s'allume au focus */
+#recherche{transition:border-bottom-color .25s ease, box-shadow .25s ease}
+#recherche:focus{box-shadow:0 6px 14px -10px var(--accent)}
