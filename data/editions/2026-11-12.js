@@ -5,6 +5,7 @@
   "news": [
     {
       "titre": "Cyberattaque iranienne en France",
+      "verifiee": true,
       "sous_titre": "Des contrôleurs de froid visés dans environ 700 supermarchés, l'Iran accusé",
       "photo": "news/photo-2.jpg",
       "article": [
@@ -27,6 +28,7 @@
     },
     {
       "titre": "Bruxelles vise TikTok",
+      "verifiee": true,
       "sous_titre": "Conclusions préliminaires du DSA sur le fil « Pour toi »",
       "photo": "news/photo-3.jpg",
       "article": [
@@ -70,6 +72,7 @@
     },
     {
       "titre": "Reset gratuit des limites",
+      "verifiee": true,
       "sous_titre": "Pour les abonnés Claude payants, à activer avant le 10 décembre 2026",
       "photo": "news/photo-5.jpg",
       "article": [
