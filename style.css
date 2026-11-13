@@ -219,7 +219,7 @@ input[type=file]::file-selector-button:hover{background-color:var(--accent); col
   margin:0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding:10px max(16px, env(safe-area-inset-left, 0px));
   background-color:var(--card); border-bottom:1px solid var(--line); padding-top:max(10px, env(safe-area-inset-top, 0px))}
 .brand-line{display:flex; align-items:center; gap:12px; min-width:0}
-.brand-accueil{color:inherit; text-decoration:none}
+a.brand-accueil, a.brand-accueil:link, a.brand-accueil:visited, a.brand-accueil:hover, a.brand-accueil:focus-visible, a.brand-accueil:active{color:inherit; text-decoration:none !important}
 .brand-line img{width:40px; height:40px; border-radius:50%; box-shadow:0 0 0 2px var(--chip); flex:0 0 auto}
 .brand-name{font-size:22px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); white-space:nowrap}
 .topbar .socials{display:flex; gap:10px}
