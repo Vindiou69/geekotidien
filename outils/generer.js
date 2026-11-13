@@ -106,4 +106,13 @@ ${items.join("\n")}
 </rss>
 `;
 fs.writeFileSync(path.join(racine, "feed.xml"), flux, "utf8");
+// Plan du site : accueil, mentions légales et une page par news (n/).
+const pagesNews = fs.readdirSync(path.join(racine, "n")).filter((f) => f.endsWith(".html")).sort();
+const adresses = [BASE + "/", BASE + "/mentions-legales.html"].concat(pagesNews.map((f) => BASE + "/n/" + f));
+const plan = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${adresses.map((u) => "  <url><loc>" + u + "</loc></url>").join("\n")}
+</urlset>
+`;
+fs.writeFileSync(path.join(racine, "sitemap.xml"), plan, "utf8");
 console.log("OK : " + editions.length + " édition(s), " + attendues.size + " news, feed.xml et n/ générés.");
