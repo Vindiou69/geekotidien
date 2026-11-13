@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=17">
 <link rel="icon" href="geekotidien-logo.png" type="image/png">
 <link rel="apple-touch-icon" href="geekotidien-logo.png">
 </head>
@@ -31,6 +31,10 @@
       <img src="geekotidien-logo.png" alt="" width="40" height="40">
       <span class="brand-name">Geekotidien</span>
     </a>
+    <div class="compteurs">
+      <p id="en-ligne" class="en-ligne" hidden></p>
+      <p id="visites" class="visites" hidden></p>
+    </div>
     <div class="socials">
       <a href="https://www.instagram.com/geekotidien/" target="_blank" rel="noopener" aria-label="Instagram Geekotidien" title="Instagram">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
@@ -55,8 +59,6 @@
   <section id="liste" aria-live="polite">
     <p class="empty">Chargement des news…</p>
   </section>
-  <p id="en-ligne" class="en-ligne" hidden></p>
-  <p id="visites" class="visites" hidden></p>
   <footer class="contact">
     <p>Une question, une erreur à signaler ?</p>
     <p><a class="partage-bouton" href="mailto:contact@geekotidien.fr">Nous écrire</a></p>
@@ -71,7 +73,7 @@
 </dialog>
 <script src="data/index.js"></script>
 <script src="config.js"></script>
-<script src="presence.js"></script>
+<script src="presence.js?v=2"></script>
 <script src="app.js?v=8"></script>
 <script src="matrix.js"></script>
 </body>

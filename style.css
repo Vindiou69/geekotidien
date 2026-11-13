@@ -437,3 +437,8 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .partage-rond{width:38px; height:38px; display:grid; place-items:center; border-radius:50%; color:var(--accent); border:1px solid var(--line); background-color:var(--card); transition:transform .2s ease, border-color .2s ease; text-decoration:none}
 .partage-rond:hover, .partage-rond:focus-visible{transform:translateY(-2px); border-color:var(--accent); outline:none}
 .partage-rond svg{width:18px; height:18px}
+
+/* Compteurs dans le bandeau du haut */
+.compteurs{display:flex; flex-direction:column; gap:2px; min-width:0}
+.compteurs .en-ligne, .compteurs .visites{margin:0; text-align:left; font-size:12px; white-space:nowrap}
+.compteurs .en-ligne:not([hidden])::before{width:6px; height:6px; margin-right:5px}

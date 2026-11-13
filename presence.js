@@ -36,7 +36,7 @@
   }
 
   function afficher(n) {
-    zone.textContent = "● " + n + (n > 1 ? " personnes" : " personne") + " en ligne";
+    zone.textContent = n + (n > 1 ? " personnes" : " personne") + " en ligne";
     zone.hidden = false;
   }
 
