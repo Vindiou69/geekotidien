@@ -1,7 +1,7 @@
-// Configuration des services externes (réactions partagées).
-// À remplir quand le projet Supabase est créé : URL du projet et clé « anon public » (jamais la clé « service_role »).
-// Tant que ces deux valeurs sont vides, les réactions ne s'affichent pas.
+// Configuration des services externes (réactions, commentaires, compteurs).
+// Clé « publishable » du projet Supabase : elle est conçue pour être lue dans le navigateur.
+// Ne jamais mettre ici la clé « secret » ou « service_role ».
 window.GEEKO_CONFIG = {
-  supabaseUrl: "",
-  supabaseKey: ""
+  supabaseUrl: "https://ldboetlrfrhgxnygysct.supabase.co",
+  supabaseKey: "sb_publishable_ZiIrerZVMP94utwHB10-xQ_EmkuWpFs"
 };
