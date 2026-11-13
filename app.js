@@ -165,6 +165,7 @@
     sept_derniers().forEach(function (iso) {
       if (iso === aujourdhuiIso) return; // remplacé par « Aujourd'hui »
       var d = new Date(iso + "T12:00:00");
+      if (d.getDay() === 0 || d.getDay() === 6) return; // pas de news le week-end
       var libelle = d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "numeric" });
       if (publiees[iso]) {
         var a = document.createElement("a");
