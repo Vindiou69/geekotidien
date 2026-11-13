@@ -45,6 +45,48 @@
     return chargees[date];
   }
 
+  // Réactions partagées (Supabase) : affichées seulement si config.js est rempli.
+  var CFG = window.GEEKO_CONFIG || {};
+  var EMOJIS = ["👍", "🔥", "😮"];
+  function reactionsActives() { return !!(CFG.supabaseUrl && CFG.supabaseKey); }
+  function entetes() {
+    return { "apikey": CFG.supabaseKey, "Authorization": "Bearer " + CFG.supabaseKey, "Content-Type": "application/json" };
+  }
+  function dejaReagi(id, e) {
+    try { return localStorage.getItem("reac:" + id + ":" + e) === "1"; } catch (x) { return false; }
+  }
+  function marquerReagi(id, e) {
+    try { localStorage.setItem("reac:" + id + ":" + e, "1"); } catch (x) {}
+  }
+  function blocReactions(id) {
+    var zone = document.createElement("div");
+    zone.className = "reactions";
+    var boutons = {};
+    EMOJIS.forEach(function (e) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "reaction"; b.textContent = e + " 0";
+      b.disabled = dejaReagi(id, e);
+      b.addEventListener("click", function () { reagir(id, e, b); });
+      zone.appendChild(b); boutons[e] = b;
+    });
+    fetch(CFG.supabaseUrl + "/rest/v1/reactions?news=eq." + encodeURIComponent(id) + "&select=emoji,total", { headers: entetes() })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (lignes) {
+        lignes.forEach(function (l) { if (boutons[l.emoji]) boutons[l.emoji].textContent = l.emoji + " " + l.total; });
+      }).catch(function () {});
+    return zone;
+  }
+  // Une réaction par appareil et par emoji : le bouton reste désactivé après le clic.
+  function reagir(id, e, b) {
+    if (b.disabled) return;
+    b.disabled = true;
+    marquerReagi(id, e);
+    fetch(CFG.supabaseUrl + "/rest/v1/rpc/incrementer", { method: "POST", headers: entetes(), body: JSON.stringify({ p_news: id, p_emoji: e }) })
+      .then(function (r) { if (!r.ok) throw new Error("erreur"); return r.json(); })
+      .then(function (total) { b.textContent = e + " " + total; })
+      .catch(function () {});
+  }
+
   function ouvrir(n) {
     dlgContenu.textContent = "";
     if (n.photo) {
@@ -88,14 +130,19 @@
     });
     zoneLien.appendChild(bouton);
     // Partage direct : Facebook et LinkedIn ont un lien de partage web. Instagram et TikTok n'en ont pas : utiliser « Copier le lien ».
-    [["Partager sur Facebook", "https://www.facebook.com/sharer/sharer.php?u="],
-     ["Partager sur LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url="]].forEach(function (r) {
+    var titrePartage = (n.titre || "News") + " · Geekotidien";
+    [["Partager sur Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(lien)],
+     ["Partager sur LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(lien)],
+     ["Partager sur X", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(titrePartage) + "&url=" + encodeURIComponent(lien)],
+     ["Partager sur Bluesky", "https://bsky.app/intent/compose?text=" + encodeURIComponent(titrePartage + " " + lien)],
+     ["WhatsApp", "https://wa.me/?text=" + encodeURIComponent(titrePartage + " " + lien)]].forEach(function (r) {
       var a = document.createElement("a");
-      a.href = r[1] + encodeURIComponent(lien); a.target = "_blank"; a.rel = "noopener noreferrer";
+      a.href = r[1]; a.target = "_blank"; a.rel = "noopener noreferrer";
       a.className = "partage-bouton"; a.textContent = r[0];
       zoneLien.appendChild(a);
     });
     corps.appendChild(zoneLien);
+    if (reactionsActives()) corps.appendChild(blocReactions(n.__date + "-" + n.__num));
 
     dlgContenu.appendChild(corps);
     // Adresse de la news dans la barre du navigateur, et titre de l'onglet.
