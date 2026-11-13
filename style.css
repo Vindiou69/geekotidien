@@ -1,7 +1,7 @@
 /* Feuille de style reprise de la page Geekotidien (même thème). */
 :root{
   --bg:#f4f3ee; --fg:#15181b; --muted:#5b646d; --line:#d8d6cc;
-  --card:#ffffff; --accent:#1d8a66; --accent-ink:#ffffff; --chip:#e4f3ec; --warn:#9a5b00;
+  --card:#ffffff; --accent:#18795a; --accent-ink:#ffffff; --chip:#e4f3ec; --warn:#9a5b00;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark){
@@ -381,3 +381,14 @@ a.partage-bouton{text-decoration:none; display:inline-block}
 .contact a{color:var(--accent); font-weight:600}
 .contact-adresse{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center}
 .contact-adresse span{font-family:inherit; color:inherit}
+
+/* ---- Améliorations : survol, reflet, fondu, focus ---- */
+button.vignette:hover, button.vignette:focus-visible{box-shadow:0 12px 24px -16px var(--accent)}
+#liste.fondu{animation:fadeIn .45s ease}
+.brand-name{animation:glitch .5s steps(2) 1 .35s}
+.vignette-verifie{position:relative; overflow:hidden}
+.vignette-verifie::after{content:""; position:absolute; inset:0; background:linear-gradient(105deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); transform:translateX(-120%); animation:reflet 1.4s ease .6s 1 forwards; pointer-events:none}
+@keyframes reflet{to{transform:translateX(120%)}}
+a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.edition-heure{color:var(--muted); font-size:13px; margin:-4px 0 12px}
+.note-semaine{color:var(--muted); font-size:13px; margin:6px 0 0; text-align:center}

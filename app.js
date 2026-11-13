@@ -207,12 +207,14 @@
       vider();
       var h = el("h2", "Édition du " + dateFr(date), "edition-titre");
       liste.appendChild(h);
+      liste.appendChild(el("p", "Publiée vers 8h", "edition-heure"));
       if (ed.cover) {
         var c = document.createElement("img");
         c.src = ed.cover; c.alt = "Couverture de l'édition du " + dateFr(date); c.className = "cover-img";
         liste.appendChild(c);
       }
       liste.appendChild(grille(ed.news || []));
+      liste.classList.remove("fondu"); void liste.offsetWidth; liste.classList.add("fondu");
     }).catch(function () {
       message("Cette édition n'existe pas ou n'est pas encore publiée.");
       var retour = document.createElement("p");
