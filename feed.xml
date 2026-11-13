@@ -3,7 +3,7 @@
   <channel>
     <title>Geekotidien</title>
     <link>https://geekotidien.fr/</link>
-    <description>Les news tech et geek du jour, sélectionnées chaque matin.</description>
+    <description>Les news tech et geek du jour, du lundi au vendredi, sélectionnées chaque matin.</description>
     <language>fr-FR</language>
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://geekotidien.fr/feed.xml" rel="self" type="application/rss+xml"/>
     <item>

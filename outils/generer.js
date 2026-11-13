@@ -9,7 +9,7 @@ const vm = require("vm");
 const BASE = "https://geekotidien.fr";
 const racine = path.join(__dirname, "..");
 const TITRE_SITE = "Geekotidien";
-const DESCRIPTION_SITE = "Les news tech et geek du jour, sélectionnées chaque matin.";
+const DESCRIPTION_SITE = "Les news tech et geek du jour, du lundi au vendredi, sélectionnées chaque matin.";
 
 // Charge data/index.js et les éditions dans un même bac à sable (aucune dépendance externe).
 const fenetre = { window: {} };
