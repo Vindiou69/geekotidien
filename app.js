@@ -172,7 +172,8 @@
     var lien = BASE + "/n/" + n.__date + "-" + n.__num + ".html";
     var titrePartage = (n.titre || "News") + " · Geekotidien";
     var zoneLien = document.createElement("div");
-    zoneLien.className = "partage";
+    zoneLien.className = "partage partage-icones";
+    // Copier le lien : pour Instagram et TikTok, qui n'ont pas de lien de partage web.
     var bouton = el("button", "Copier le lien", "partage-bouton");
     bouton.type = "button";
     bouton.addEventListener("click", function () {
@@ -182,15 +183,23 @@
       else ko();
     });
     zoneLien.appendChild(bouton);
-    // Partage direct : Facebook et LinkedIn ont un lien de partage web. Instagram et TikTok n'en ont pas : utiliser « Copier le lien ».
-    [["Partager sur Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(lien)],
-     ["Partager sur LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(lien)],
-     ["Partager sur X", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(titrePartage) + "&url=" + encodeURIComponent(lien)],
-     ["Partager sur Bluesky", "https://bsky.app/intent/compose?text=" + encodeURIComponent(titrePartage + " " + lien)],
-     ["WhatsApp", "https://wa.me/?text=" + encodeURIComponent(titrePartage + " " + lien)]].forEach(function (r) {
+    // Boutons ronds avec logo, comme le bandeau de la page d'accueil.
+    var logos = {
+      facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h2.5V4.5H14c-2.5 0-4 1.6-4 4.2V11H7.5v3.5H10V21h3.5v-6.5H16l.5-3.5h-3V8.7c0-.4.2-.7.5-.7z" fill="currentColor"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5V18M6 6v.01M10.5 18V9.5m0 3.5c0-2 1.3-3.5 3.2-3.5s2.8 1.2 2.8 3.4V18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+      x: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4l14 16M19 4L5 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
+      bluesky: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11c-1.5-3-4-6-6-6.5C5 4 4.5 6 5 8.5c.5 2 2 3 4 3-2.5.5-4 2-3 4 1 2 3 2.5 6 0 3 2.5 5 2 6 0 1-2-.5-3.5-3-4 2 0 3.5-1 4-3 .5-2.5-.5-4.5-1-6.5-2-2.5-4.5-3.5-6-.5z" fill="currentColor"/></svg>',
+      whatsapp: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8.5c.2 3 2.5 5.5 6 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+    };
+    [["Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(lien), logos.facebook],
+     ["LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(lien), logos.linkedin],
+     ["X", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(titrePartage) + "&url=" + encodeURIComponent(lien), logos.x],
+     ["Bluesky", "https://bsky.app/intent/compose?text=" + encodeURIComponent(titrePartage + " " + lien), logos.bluesky],
+     ["WhatsApp", "https://wa.me/?text=" + encodeURIComponent(titrePartage + " " + lien), logos.whatsapp]].forEach(function (r) {
       var a = document.createElement("a");
       a.href = r[1]; a.target = "_blank"; a.rel = "noopener noreferrer";
-      a.className = "partage-bouton"; a.textContent = r[0];
+      a.className = "partage-rond"; a.setAttribute("aria-label", "Partager sur " + r[0]); a.title = r[0];
+      a.innerHTML = r[2];
       zoneLien.appendChild(a);
     });
     corps.appendChild(zoneLien);
