@@ -455,7 +455,7 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (max-width: 699px){
   .topbar{gap:6px}
   .topbar .brand-line img{display:none}
-  .topbar .brand-name{font-size:14px; letter-spacing:0}
+  .topbar .brand-name{font-size:14px; letter-spacing:0; white-space:nowrap}
   .topbar .socials{gap:6px}
   .topbar .socials a{width:28px; height:28px}
   .topbar .socials svg{width:14px; height:14px}
@@ -472,4 +472,29 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (max-width: 379px){
   .topbar.avec-compteurs .socials{margin-left:6px; padding-left:6px}
   .compteurs .visites:not([hidden]):not(:first-child){margin-left:5px; padding-left:5px}
+}
+
+/* Bandeau : nom à gauche, compteurs centrés (séparés par des traits), réseaux à droite */
+.topbar{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:8px; flex-wrap:nowrap}
+.topbar .brand-line{justify-self:start; min-width:0}
+.topbar .socials{justify-self:end; padding-left:0; margin-left:0; min-width:0}
+.topbar .socials::before{display:none}
+.compteurs{justify-self:center; margin:0}
+.topbar.avec-compteurs .compteurs{display:flex; position:relative; padding:0 14px; margin:0; gap:14px; justify-content:center}
+.topbar.avec-compteurs .compteurs::before, .topbar.avec-compteurs .compteurs::after{content:""; position:absolute; top:50%; width:1px; height:18px; background:var(--accent); transform:translateY(-50%)}
+.topbar.avec-compteurs .compteurs::before{left:0}
+.topbar.avec-compteurs .compteurs::after{right:0}
+.compteurs .visites:not([hidden]):not(:first-child){padding-left:14px; margin-left:0}
+@media (max-width: 699px){
+  .topbar.avec-compteurs .compteurs{padding:0 8px; gap:8px}
+  .compteurs .visites:not([hidden]):not(:first-child){padding-left:8px}
+}
+@media (max-width: 699px){
+  .topbar.avec-compteurs .compteurs{padding:0 6px; gap:6px}
+  .compteurs .visites:not([hidden]):not(:first-child){padding-left:6px}
+  .topbar .socials{gap:4px}
+}
+@media (max-width: 379px){
+  .topbar.avec-compteurs .compteurs{padding:0 5px; gap:5px}
+  .compteurs .visites:not([hidden]):not(:first-child){padding-left:5px}
 }
