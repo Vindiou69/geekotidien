@@ -8,6 +8,12 @@
   var index = (window.EDITION_INDEX || []).slice();
   var chargees = {};
 
+  // Image en WebP, avec retour au JPG si le navigateur ne le charge pas.
+  function imageWebp(img, chemin) {
+    img.onerror = function () { this.onerror = null; this.src = chemin; };
+    img.src = chemin.replace(/\.jpg$/i, ".webp");
+  }
+
   function el(tag, texte, classe) {
     var e = document.createElement(tag);
     e.textContent = texte;
@@ -156,7 +162,7 @@
     dlgContenu.textContent = "";
     if (n.photo) {
       var grand = document.createElement("img");
-      grand.src = n.photo;
+      imageWebp(grand, n.photo);
       grand.alt = "";
       grand.className = "detail-img";
       dlgContenu.appendChild(grand);
@@ -239,7 +245,7 @@
       b.style.setProperty("--i", i);
       if (n.photo) {
         var img = document.createElement("img");
-        img.src = n.photo; img.alt = ""; img.loading = "lazy";
+        imageWebp(img, n.photo); img.alt = ""; img.loading = "lazy";
         b.appendChild(img);
       }
       var txt = document.createElement("div");
@@ -335,7 +341,7 @@
       liste.appendChild(el("p", "Publiée vers 8h", "edition-heure"));
       if (ed.cover) {
         var c = document.createElement("img");
-        c.src = ed.cover; c.alt = "Couverture de l'édition du " + dateFr(date); c.className = "cover-img";
+        imageWebp(c, ed.cover); c.alt = "Couverture de l'édition du " + dateFr(date); c.className = "cover-img";
         liste.appendChild(c);
       }
       liste.appendChild(grille(ed.news || []));
