@@ -296,8 +296,11 @@ button.vignette{flex:0 1 240px; width:240px; max-width:100%; text-align:center}
 .vignette-titre, .detail-titre{text-transform:uppercase}
 
 /* ---- Navigation, recherche et archives ---- */
-.onglets{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 8px}
+.onglets{display:flex; gap:8px; flex-wrap:nowrap; overflow-x:auto; margin:14px 0 8px; scrollbar-width:none}
+.onglets::-webkit-scrollbar{display:none}
+.onglets > *{flex:0 0 auto; white-space:nowrap}
 .onglets a{font-size:13px; padding:6px 14px; border-radius:999px; border:1px solid var(--line); color:var(--muted); text-decoration:none; background-color:var(--card)}
+.onglets .onglet-vide{font-size:13px; padding:6px 14px; border-radius:999px; border:1px dashed var(--line); color:var(--muted); opacity:.45; cursor:default}
 .onglets a.on, .onglets a:hover{background:var(--accent); color:var(--accent-ink); border-color:var(--accent); font-weight:600}
 .recherche-bloc{margin:6px 0 14px}
 #recherche{width:100%; font:inherit; font-size:14px; color:var(--fg); background-color:transparent; border:0; border-bottom:2px solid var(--line); padding:8px 2px; outline:none}

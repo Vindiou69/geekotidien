@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <canvas id="matrix" aria-hidden="true"></canvas>
@@ -43,10 +43,7 @@
   <div class="intro">
         <p class="lede">Les news tech et geek du jour, sélectionnées chaque matin.</p>
   </div>
-  <nav class="onglets" aria-label="Navigation">
-    <a href="#" id="onglet-jour">Aujourd'hui</a>
-    <a href="#archives" id="onglet-archives">Archives</a>
-  </nav>
+  <nav class="onglets" id="onglets" aria-label="Navigation"></nav>
   <div class="recherche-bloc">
     <input type="search" id="recherche" placeholder="Rechercher un mot (ex. TikTok, Claude)…" aria-label="Rechercher dans les news">
   </div>
@@ -66,7 +63,7 @@
   <div id="detail-contenu"></div>
 </dialog>
 <script src="data/index.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=2"></script>
 <script src="matrix.js"></script>
 </body>
 </html>

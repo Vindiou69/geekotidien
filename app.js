@@ -133,9 +133,58 @@
   function message(texte) { vider(); liste.appendChild(el("p", texte, "empty")); }
   // Message de chargement : une barre de lumière qui balaie la ligne.
   function chargement(texte) { vider(); liste.appendChild(el("p", texte, "empty loader")); }
-  function setOnglet(id) {
-    ["onglet-jour", "onglet-archives"].forEach(function (x) {
-      document.getElementById(x).classList.toggle("on", x === id);
+  // Barre de navigation : les 7 derniers jours (ancien à gauche), puis Archives à droite.
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function isoDe(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function jourParis() {
+    try { return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Paris" }).format(new Date()); }
+    catch (e) { return isoDe(new Date()); }
+  }
+  function sept_derniers() {
+    var aujourdhui = new Date(jourParis() + "T12:00:00");
+    var jours = [];
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(aujourdhui);
+      d.setDate(aujourdhui.getDate() - i);
+      jours.push(isoDe(d));
+    }
+    return jours;
+  }
+  function dessinerOnglets() {
+    var nav = document.getElementById("onglets");
+    if (!nav) return;
+    nav.textContent = "";
+    var publiees = {};
+    index.forEach(function (e) { publiees[e.date] = true; });
+    sept_derniers().forEach(function (iso) {
+      var d = new Date(iso + "T12:00:00");
+      var libelle = d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "numeric" });
+      if (publiees[iso]) {
+        var a = document.createElement("a");
+        a.href = "#" + iso;
+        a.dataset.date = iso;
+        a.title = "Édition du " + dateFr(iso);
+        a.textContent = libelle;
+        nav.appendChild(a);
+      } else {
+        var s = el("span", libelle, "onglet-vide");
+        s.title = "Pas d'édition ce jour-là";
+        nav.appendChild(s);
+      }
+    });
+    var arch = document.createElement("a");
+    arch.href = "#archives";
+    arch.id = "onglet-archives";
+    arch.textContent = "Archives";
+    nav.appendChild(arch);
+  }
+  // Met en évidence le bouton de la date affichée, ou Archives.
+  function setOnglet(date, archives) {
+    var nav = document.getElementById("onglets");
+    if (!nav) return;
+    Array.prototype.forEach.call(nav.querySelectorAll("a"), function (a) {
+      var actif = archives ? a.id === "onglet-archives" : (!!date && a.dataset.date === date);
+      a.classList.toggle("on", actif);
     });
   }
 
@@ -213,11 +262,11 @@
 
   function route() {
     var h = decodeURIComponent(location.hash.replace("#", ""));
-    if (h === "archives") { setOnglet("onglet-archives"); afficherArchives(); return; }
-    setOnglet("onglet-jour");
+    if (h === "archives") { setOnglet(null, true); afficherArchives(); return; }
     // Lien direct vers une news : #AAAA-MM-JJ/n ouvre l'édition puis la news.
     var direct = /^(\d{4}-\d{2}-\d{2})\/(\d+)$/.exec(h);
     if (direct) {
+      setOnglet(direct[1]);
       afficherEdition(direct[1]);
       charger(direct[1]).then(function (ed) {
         var n = (ed.news || [])[+direct[2] - 1];
@@ -225,9 +274,9 @@
       }).catch(function () {});
       return;
     }
-    if (/^\d{4}-\d{2}-\d{2}$/.test(h)) { afficherEdition(h); return; }
-    if (index.length) afficherEdition(index[0].date);
-    else message("Pas de news pour le moment.");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(h)) { setOnglet(h); afficherEdition(h); return; }
+    if (index.length) { setOnglet(index[0].date); afficherEdition(index[0].date); }
+    else { setOnglet(null); message("Pas de news pour le moment."); }
   }
 
   dlgFermer.addEventListener("click", function () { dlg.close(); });
@@ -249,5 +298,6 @@
     else ko();
   });
   window.addEventListener("hashchange", function () { champ.value = ""; route(); });
+  dessinerOnglets();
   route();
 })();
