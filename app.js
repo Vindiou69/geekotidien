@@ -150,7 +150,15 @@
         liste.appendChild(c);
       }
       liste.appendChild(grille(ed.news || []));
-    }).catch(function () { message("Cette édition n'est pas disponible."); });
+    }).catch(function () {
+      message("Cette édition n'existe pas ou n'est pas encore publiée.");
+      var retour = document.createElement("p");
+      retour.className = "empty";
+      var a = document.createElement("a");
+      a.href = "./"; a.textContent = "Revenir à la dernière édition";
+      retour.appendChild(a);
+      liste.appendChild(retour);
+    });
   }
 
   // Page archives : une carte par édition, dans la limite d'un an.
