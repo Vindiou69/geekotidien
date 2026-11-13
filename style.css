@@ -348,6 +348,7 @@ dialog[open]::backdrop{animation:fadeIn .3s ease both}
 /* Défilement de la news : le contenu reste faisable à la molette et au doigt, sans barre visible */
 dialog{scrollbar-width:none; -ms-overflow-style:none}
 dialog::-webkit-scrollbar{display:none; width:0; height:0}
+a.partage-bouton{text-decoration:none; display:inline-block}
 .partage-bouton{font:inherit; font-size:13px; font-weight:600; color:var(--accent); background-color:var(--card); border:1px solid var(--accent); border-radius:999px; padding:7px 16px; cursor:pointer; transition:background-color .2s ease, color .2s ease}
 .partage-bouton:hover{background-color:var(--accent); color:var(--accent-ink)}
 /* Recherche : le champ s'allume au focus */
