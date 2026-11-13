@@ -87,6 +87,58 @@
       .catch(function () {});
   }
 
+  // Commentaires (Supabase) : affichés seulement si config.js est rempli. Modérés avant publication.
+  function blocCommentaires(id) {
+    var zone = document.createElement("section");
+    zone.className = "commentaires";
+    zone.appendChild(el("h3", "Commentaires", "commentaires-titre"));
+    var liste = document.createElement("div");
+    liste.className = "commentaires-liste";
+    zone.appendChild(liste);
+    fetch(CFG.supabaseUrl + "/rest/v1/commentaires?news=eq." + encodeURIComponent(id) + "&approuve=eq.true&select=pseudo,texte,created_at&order=created_at.asc", { headers: entetes() })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (lignes) {
+        if (!lignes.length) { liste.appendChild(el("p", "Aucun commentaire pour le moment.", "commentaire-vide")); return; }
+        lignes.forEach(function (c) {
+          var box = document.createElement("div");
+          box.className = "commentaire";
+          box.appendChild(el("strong", c.pseudo, "commentaire-auteur"));
+          box.appendChild(el("p", c.texte, "commentaire-texte"));
+          liste.appendChild(box);
+        });
+      }).catch(function () {});
+    var form = document.createElement("form");
+    form.className = "commentaire-form";
+    var pseudo = document.createElement("input");
+    pseudo.type = "text"; pseudo.maxLength = 40; pseudo.required = true;
+    pseudo.placeholder = "Votre pseudo"; pseudo.setAttribute("aria-label", "Pseudo");
+    var texte = document.createElement("textarea");
+    texte.maxLength = 1000; texte.required = true; texte.rows = 3;
+    texte.placeholder = "Votre commentaire (publié après validation)"; texte.setAttribute("aria-label", "Commentaire");
+    var bouton = el("button", "Envoyer", "partage-bouton");
+    bouton.type = "submit";
+    var retour = el("p", "", "commentaire-retour");
+    form.appendChild(pseudo); form.appendChild(texte); form.appendChild(bouton); form.appendChild(retour);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!pseudo.value.trim() || !texte.value.trim()) return;
+      bouton.disabled = true;
+      fetch(CFG.supabaseUrl + "/rest/v1/commentaires", {
+        method: "POST",
+        headers: Object.assign({}, entetes(), { "Prefer": "return=minimal" }),
+        body: JSON.stringify({ news: id, pseudo: pseudo.value.trim(), texte: texte.value.trim() })
+      }).then(function (r) {
+        if (!r.ok) throw new Error("erreur");
+        retour.textContent = "Merci ! Votre commentaire sera visible après validation.";
+        form.reset();
+      }).catch(function () {
+        retour.textContent = "Envoi impossible pour le moment, réessayez plus tard.";
+      }).then(function () { bouton.disabled = false; });
+    });
+    zone.appendChild(form);
+    return zone;
+  }
+
   function ouvrir(n) {
     dlgContenu.textContent = "";
     if (n.photo) {
@@ -142,7 +194,11 @@
       zoneLien.appendChild(a);
     });
     corps.appendChild(zoneLien);
-    if (reactionsActives()) corps.appendChild(blocReactions(n.__date + "-" + n.__num));
+    if (reactionsActives()) {
+      var idNews = n.__date + "-" + n.__num;
+      corps.appendChild(blocReactions(idNews));
+      corps.appendChild(blocCommentaires(idNews));
+    }
 
     dlgContenu.appendChild(corps);
     // Adresse de la news dans la barre du navigateur, et titre de l'onglet.

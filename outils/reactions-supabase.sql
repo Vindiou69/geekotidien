@@ -1,18 +1,16 @@
--- Réactions partagées de Geekotidien (à exécuter une fois dans l'éditeur SQL de Supabase).
+-- Geekotidien : réactions, compteurs et commentaires (à exécuter une fois dans l'éditeur SQL de Supabase).
 
+-- 1. Réactions partagées (👍 🔥 😮)
 create table if not exists reactions (
   news text not null,            -- identifiant de la news, ex. 2026-11-13-1
   emoji text not null,
   total integer not null default 0,
   primary key (news, emoji)
 );
-
 alter table reactions enable row level security;
-
--- Tout le monde peut lire les compteurs.
 create policy "lecture publique" on reactions for select to anon using (true);
+grant select on reactions to anon;
 
--- Une seule fonction permet d'ajouter une réaction : pas d'écriture directe.
 create or replace function incrementer(p_news text, p_emoji text)
 returns integer
 language plpgsql
@@ -34,10 +32,9 @@ begin
   return t;
 end;
 $$;
-
 grant execute on function incrementer(text, text) to anon;
 
--- Compteur total de visites (une ligne, incrémentée une fois par session de navigation).
+-- 2. Total des visites
 create table if not exists compteur (
   nom text primary key,
   total bigint not null default 0
@@ -45,6 +42,7 @@ create table if not exists compteur (
 insert into compteur (nom, total) values ('visites', 0) on conflict (nom) do nothing;
 alter table compteur enable row level security;
 create policy "lecture compteur" on compteur for select to anon using (true);
+grant select on compteur to anon;
 
 create or replace function enregistrer_visite()
 returns bigint
@@ -59,5 +57,26 @@ begin
   return t;
 end;
 $$;
-
 grant execute on function enregistrer_visite() to anon;
+
+-- 3. Commentaires (publiés seulement après validation dans le tableau de bord)
+create table if not exists commentaires (
+  id uuid primary key default gen_random_uuid(),
+  news text not null,
+  pseudo text not null,
+  texte text not null,
+  approuve boolean not null default false,
+  created_at timestamptz not null default now()
+);
+alter table commentaires enable row level security;
+-- Un visiteur peut publier, mais uniquement en attente de validation et avec des longueurs raisonnables.
+create policy "publier commentaire" on commentaires for insert to anon
+  with check (
+    approuve = false
+    and news ~ '^\d{4}-\d{2}-\d{2}-\d{1,2}$'
+    and char_length(pseudo) between 1 and 40
+    and char_length(texte) between 2 and 1000
+  );
+-- Seuls les commentaires validés sont lisibles.
+create policy "lire commentaires approuves" on commentaires for select to anon using (approuve = true);
+grant select, insert on commentaires to anon;

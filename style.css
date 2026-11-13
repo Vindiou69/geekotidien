@@ -420,3 +420,14 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .en-ligne{text-align:center; font-size:13px; color:var(--muted); margin:24px 0 0}
 .en-ligne:not([hidden])::before{content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--accent); margin-right:6px; vertical-align:middle; animation:softpulse 2s ease infinite}
 .visites{text-align:center; font-size:13px; color:var(--muted); margin:6px 0 0}
+
+/* ---- Commentaires ---- */
+.commentaires{margin:22px 0 4px; border-top:1px solid var(--line); padding-top:16px}
+.commentaires-titre{font-size:16px; margin:0 0 8px}
+.commentaire{border-left:3px solid var(--line); padding:6px 10px; margin:8px 0}
+.commentaire-auteur{font-size:14px}
+.commentaire-texte{margin:4px 0 0; font-size:14px; line-height:1.5}
+.commentaire-vide, .commentaire-retour{font-size:13px; color:var(--muted); margin:6px 0}
+.commentaire-form{display:flex; flex-direction:column; gap:8px; margin-top:12px}
+.commentaire-form input, .commentaire-form textarea{font:inherit; font-size:14px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--fg)}
+.commentaire-form button{align-self:flex-start}
