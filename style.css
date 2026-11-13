@@ -378,6 +378,7 @@ a.partage-bouton{text-decoration:none; display:inline-block}
 @media (max-width: 699px){ .contact > :not(:first-child)::before{display:none} }
 /* Pas de séparateur entre la question et « Nous écrire » */
 .contact > :nth-child(2)::before{display:none}
+.contact > :nth-child(2){margin-left:-10px}
 .contact a{color:var(--accent); font-weight:600}
 .contact-adresse{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center}
 .contact-adresse span{font-family:inherit; color:inherit}
