@@ -133,7 +133,7 @@
   function message(texte) { vider(); liste.appendChild(el("p", texte, "empty")); }
   // Message de chargement : une barre de lumière qui balaie la ligne.
   function chargement(texte) { vider(); liste.appendChild(el("p", texte, "empty loader")); }
-  // Barre de navigation : les 7 derniers jours (ancien à gauche), puis Archives à droite.
+  // Barre de navigation : Aujourd'hui, puis les 7 derniers jours (le plus récent d'abord), puis Archives.
   function pad2(n) { return (n < 10 ? "0" : "") + n; }
   function isoDe(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
   function jourParis() {
@@ -143,7 +143,7 @@
   function sept_derniers() {
     var aujourdhui = new Date(jourParis() + "T12:00:00");
     var jours = [];
-    for (var i = 6; i >= 0; i--) {
+    for (var i = 0; i <= 6; i++) {
       var d = new Date(aujourdhui);
       d.setDate(aujourdhui.getDate() - i);
       jours.push(isoDe(d));
@@ -154,6 +154,11 @@
     var nav = document.getElementById("onglets");
     if (!nav) return;
     nav.textContent = "";
+    var accueil = document.createElement("a");
+    accueil.href = "#";
+    accueil.id = "onglet-accueil";
+    accueil.textContent = "Aujourd'hui";
+    nav.appendChild(accueil);
     var publiees = {};
     index.forEach(function (e) { publiees[e.date] = true; });
     sept_derniers().forEach(function (iso) {
@@ -179,11 +184,13 @@
     nav.appendChild(arch);
   }
   // Met en évidence le bouton de la date affichée, ou Archives.
-  function setOnglet(date, archives) {
+  function setOnglet(date, archives, accueil) {
     var nav = document.getElementById("onglets");
     if (!nav) return;
     Array.prototype.forEach.call(nav.querySelectorAll("a"), function (a) {
-      var actif = archives ? a.id === "onglet-archives" : (!!date && a.dataset.date === date);
+      var actif = archives ? a.id === "onglet-archives"
+        : accueil ? a.id === "onglet-accueil"
+        : (!!date && a.dataset.date === date);
       a.classList.toggle("on", actif);
     });
   }
@@ -275,7 +282,7 @@
       return;
     }
     if (/^\d{4}-\d{2}-\d{2}$/.test(h)) { setOnglet(h); afficherEdition(h); return; }
-    if (index.length) { setOnglet(index[0].date); afficherEdition(index[0].date); }
+    if (index.length) { setOnglet(null, false, true); afficherEdition(index[0].date); }
     else { setOnglet(null); message("Pas de news pour le moment."); }
   }
 
