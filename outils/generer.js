@@ -1,6 +1,6 @@
 // Génère, à partir des éditions du site :
 //   - feed.xml            : flux RSS (une entrée par news) ;
-//   - n/AAAA-MM-JJ-N.html : une page par news, avec aperçu pour les réseaux, qui redirige vers la news.
+//   - n/AAAA-MM-JJ-N.html : une page par news (texte complet, aperçu pour les réseaux, données structurées).
 // Usage : node outils/generer.js   (depuis le dossier du site, après chaque nouvelle édition)
 const fs = require("fs");
 const path = require("path");
@@ -45,12 +45,29 @@ editions.forEach(function (ed) {
     const desc = n.sous_titre || DESCRIPTION_SITE;
     const image = n.photo ? BASE + "/" + n.photo : BASE + "/" + ed.cover;
     const cible = "../#" + ed.date + "/" + num;
+    const dateLong = new Date(ed.date + "T12:00:00").toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    const corps = (n.article || []).map(function (p) { return "<p>" + echapper(p) + "</p>"; }).join("\n");
+    const sources = (n.sources || []).map(function (src) {
+      return '<li><a href="' + echapper(src.url) + '" rel="nofollow noopener">' + echapper(src.nom) + "</a></li>";
+    }).join("");
+    const jsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": n.titre || "News",
+      "description": desc,
+      "datePublished": ed.date,
+      "image": [image],
+      "mainEntityOfPage": urlNews(ed.date, num),
+      "inLanguage": "fr-FR",
+      "author": { "@type": "Organization", "name": TITRE_SITE, "url": BASE + "/" },
+      "publisher": { "@type": "Organization", "name": TITRE_SITE, "logo": { "@type": "ImageObject", "url": BASE + "/geekotidien-logo.png" } }
+    }).replace(/</g, "\\u003c");
     const html = `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <title>${echapper(titre)}</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="${echapper(desc)}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="${TITRE_SITE}">
@@ -63,11 +80,23 @@ editions.forEach(function (ed) {
 <meta name="twitter:description" content="${echapper(desc)}">
 <meta name="twitter:image" content="${image}">
 <link rel="canonical" href="${urlNews(ed.date, num)}">
-<meta http-equiv="refresh" content="0; url=${cible}">
-<script>location.replace(${JSON.stringify(cible)});</script>
+<link rel="alternate" type="application/rss+xml" title="Geekotidien" href="${BASE}/feed.xml">
+<link rel="stylesheet" href="../style.css?v=10">
+<script type="application/ld+json">${jsonLd}</script>
 </head>
 <body>
-<p>Ouverture de la news… <a href="${cible}">Cliquer ici si rien ne se passe.</a></p>
+<main class="article">
+<p class="sur-titre"><a href="../">Geekotidien</a> · Édition du ${dateLong}</p>
+<h1>${echapper(n.titre || "News")}</h1>
+<p class="sous">${echapper(n.sous_titre || "")}</p>
+<img src="../${echapper(n.photo || ed.cover)}" alt="" width="1200" height="600">
+${corps}
+${n.le_plus ? '<p class="leplus"><strong>Le + :</strong> ' + echapper(n.le_plus) + "</p>" : ""}
+<h2>Sources</h2>
+<ul>${sources}</ul>
+<p><a href="${cible}">Voir cette news dans le site</a> · <a href="../">Toutes les news</a></p>
+</main>
+<footer class="pied"><a href="../mentions-legales.html">Mentions légales</a></footer>
 </body>
 </html>
 `;
@@ -108,10 +137,13 @@ ${items.join("\n")}
 fs.writeFileSync(path.join(racine, "feed.xml"), flux, "utf8");
 // Plan du site : accueil, mentions légales et une page par news (n/).
 const pagesNews = fs.readdirSync(path.join(racine, "n")).filter((f) => f.endsWith(".html")).sort();
-const adresses = [BASE + "/", BASE + "/mentions-legales.html"].concat(pagesNews.map((f) => BASE + "/n/" + f));
+const derniere = index.length ? index[0].date : "";
+const adresses = [`  <url><loc>${BASE}/</loc>${derniere ? "<lastmod>" + derniere + "</lastmod>" : ""}</url>`,
+  `  <url><loc>${BASE}/mentions-legales.html</loc></url>`]
+  .concat(pagesNews.map((f) => `  <url><loc>${BASE}/n/${f}</loc><lastmod>${f.slice(0, 10)}</lastmod></url>`));
 const plan = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${adresses.map((u) => "  <url><loc>" + u + "</loc></url>").join("\n")}
+${adresses.join("\n")}
 </urlset>
 `;
 fs.writeFileSync(path.join(racine, "sitemap.xml"), plan, "utf8");

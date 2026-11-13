@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Geekotidien</title>
+<title>Geekotidien · les news tech et geek du jour</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Les news tech et geek du jour, du lundi au vendredi, sélectionnées chaque matin.">
 <meta property="og:type" content="website">
@@ -13,11 +13,12 @@
 <meta property="og:image" content="https://geekotidien.fr/geekotidien-logo.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://geekotidien.fr/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Geekotidien","url":"https://geekotidien.fr/","inLanguage":"fr-FR","description":"Les news tech et geek du jour, du lundi au vendredi, sélectionnées chaque matin."}</script>
 <link rel="alternate" type="application/rss+xml" title="Geekotidien" href="feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 <link rel="icon" href="geekotidien-logo.png" type="image/png">
 <link rel="apple-touch-icon" href="geekotidien-logo.png">
 </head>
@@ -50,6 +51,7 @@
   <div class="recherche-bloc">
     <input type="search" id="recherche" placeholder="Rechercher un mot (ex. TikTok, Claude)…" aria-label="Rechercher dans les news">
   </div>
+  <h1 class="sr-only">Geekotidien : les news tech et geek du jour</h1>
   <section id="liste" aria-live="polite">
     <p class="empty">Chargement des news…</p>
   </section>
@@ -66,7 +68,7 @@
   <div id="detail-contenu"></div>
 </dialog>
 <script src="data/index.js"></script>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 <script src="matrix.js"></script>
 </body>
 </html>

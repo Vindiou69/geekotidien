@@ -393,3 +393,19 @@ button.vignette:hover, button.vignette:focus-visible{box-shadow:0 12px 24px -16p
 a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .edition-heure{color:var(--muted); font-size:13px; margin:-4px 0 12px}
 .note-semaine{color:var(--muted); font-size:13px; margin:6px 0 0; text-align:center}
+
+/* ---- Pages de news (n/) : article lisible, indexable ---- */
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+.article{max-width:680px; margin:0 auto; padding:24px max(16px, env(safe-area-inset-right, 0px)) 32px max(16px, env(safe-area-inset-left, 0px))}
+.article .sur-titre{font-size:13px; color:var(--muted); margin:0 0 10px}
+.article h1{font-size:clamp(24px, 5vw, 32px); line-height:1.15; margin:0 0 10px; text-wrap:balance}
+.article .sous{font-size:18px; color:var(--muted); margin:0 0 18px}
+.article img{display:block; width:100%; height:auto; border-radius:8px; margin:0 0 18px}
+.article p{font-size:16px; line-height:1.6; max-width:65ch}
+.article .leplus{background:var(--chip); border-left:3px solid var(--accent); padding:8px 12px; border-radius:4px}
+.article h2{font-size:18px; margin:24px 0 8px}
+.article ul{padding-left:20px}
+.article li{margin:4px 0}
+.article a{color:var(--accent)}
+.pied{text-align:center; font-size:13px; padding:0 16px 24px}
+.pied a{color:var(--muted)}
