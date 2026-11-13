@@ -59,6 +59,7 @@
     corps.appendChild(el("h2", n.titre || "Sans titre", "detail-titre"));
     if (n.sous_titre) corps.appendChild(el("p", n.sous_titre, "detail-sous"));
     // Info moins vérifiée : signalée au lecteur (verifiee: false dans l'édition).
+    if (n.verifiee === true) corps.appendChild(el("p", "Information vérifiée : confirmée par une source officielle.", "verif-ok"));
     if (n.verifiee === false) corps.appendChild(el("p", "Information moins vérifiée : elle repose sur une source de presse, pas sur une source officielle confirmée.", "alerte-verif"));
     (n.article || []).forEach(function (p) { corps.appendChild(el("p", p, "detail-texte")); });
     if (n.le_plus) corps.appendChild(el("p", "Le + : " + n.le_plus, "news-plus"));
@@ -120,6 +121,7 @@
       txt.className = "vignette-txt";
       txt.appendChild(el("span", n.titre || "Sans titre", "vignette-titre"));
       if (n.verifiee === false) txt.appendChild(el("span", "À vérifier", "vignette-alerte"));
+      else if (n.verifiee === true) txt.appendChild(el("span", "Vérifié", "vignette-verifie"));
       b.appendChild(txt);
       b.addEventListener("click", function () { ouvrir(n); });
       g.appendChild(b);

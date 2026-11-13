@@ -41,6 +41,7 @@
     },
     {
       "titre": "Euclid, 900 M galaxies",
+      "verifiee": true,
       "sous_titre": "La collaboration Euclid publie les données DR1-Foundation",
       "photo": "news/photo-4.jpg",
       "article": [
