@@ -8,6 +8,7 @@ create table if not exists reactions (
   primary key (news, emoji)
 );
 alter table reactions enable row level security;
+drop policy if exists "lecture publique" on reactions;
 create policy "lecture publique" on reactions for select to anon using (true);
 grant select on reactions to anon;
 
@@ -41,6 +42,7 @@ create table if not exists compteur (
 );
 insert into compteur (nom, total) values ('visites', 0) on conflict (nom) do nothing;
 alter table compteur enable row level security;
+drop policy if exists "lecture compteur" on compteur;
 create policy "lecture compteur" on compteur for select to anon using (true);
 grant select on compteur to anon;
 
