@@ -59,21 +59,20 @@ end;
 $$;
 grant execute on function enregistrer_visite() to anon;
 
--- 3. Commentaires (publiés seulement après validation dans le tableau de bord)
+-- 3. Commentaires (publiés immédiatement ; suppression possible depuis le tableau de bord)
 create table if not exists commentaires (
   id uuid primary key default gen_random_uuid(),
   news text not null,
   pseudo text not null,
   texte text not null,
-  approuve boolean not null default false,
+  approuve boolean not null default true,
   created_at timestamptz not null default now()
 );
 alter table commentaires enable row level security;
 -- Un visiteur peut publier, mais uniquement en attente de validation et avec des longueurs raisonnables.
 create policy "publier commentaire" on commentaires for insert to anon
   with check (
-    approuve = false
-    and news ~ '^\d{4}-\d{2}-\d{2}-\d{1,2}$'
+    news ~ '^\d{4}-\d{2}-\d{2}-\d{1,2}$'
     and char_length(pseudo) between 1 and 40
     and char_length(texte) between 2 and 1000
   );

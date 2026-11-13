@@ -87,7 +87,7 @@
       .catch(function () {});
   }
 
-  // Commentaires (Supabase) : affichés seulement si config.js est rempli. Modérés avant publication.
+  // Commentaires (Supabase) : affichés seulement si config.js est rempli. Publiés immédiatement.
   function blocCommentaires(id) {
     var zone = document.createElement("section");
     zone.className = "commentaires";
@@ -114,7 +114,7 @@
     pseudo.placeholder = "Votre pseudo"; pseudo.setAttribute("aria-label", "Pseudo");
     var texte = document.createElement("textarea");
     texte.maxLength = 1000; texte.required = true; texte.rows = 3;
-    texte.placeholder = "Votre commentaire (publié après validation)"; texte.setAttribute("aria-label", "Commentaire");
+    texte.placeholder = "Votre commentaire"; texte.setAttribute("aria-label", "Commentaire");
     var bouton = el("button", "Envoyer", "partage-bouton");
     bouton.type = "submit";
     var retour = el("p", "", "commentaire-retour");
@@ -129,7 +129,7 @@
         body: JSON.stringify({ news: id, pseudo: pseudo.value.trim(), texte: texte.value.trim() })
       }).then(function (r) {
         if (!r.ok) throw new Error("erreur");
-        retour.textContent = "Merci ! Votre commentaire sera visible après validation.";
+        retour.textContent = "Merci ! Votre commentaire est publié.";
         form.reset();
       }).catch(function () {
         retour.textContent = "Envoi impossible pour le moment, réessayez plus tard.";
