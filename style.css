@@ -438,7 +438,38 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .partage-rond:hover, .partage-rond:focus-visible{transform:translateY(-2px); border-color:var(--accent); outline:none}
 .partage-rond svg{width:18px; height:18px}
 
-/* Compteurs dans le bandeau du haut */
-.compteurs{display:flex; flex-direction:column; gap:2px; min-width:0}
-.compteurs .en-ligne, .compteurs .visites{margin:0; text-align:left; font-size:12px; white-space:nowrap}
+/* Bandeau du haut : une seule ligne, séparée par des traits verts */
+.topbar{flex-wrap:nowrap}
+.topbar .brand-line{flex:0 0 auto}
+.compteurs{display:none; align-items:center; min-width:0; flex:0 1 auto}
+.topbar.avec-compteurs .compteurs{display:flex}
+.compteurs .en-ligne, .compteurs .visites{margin:0; text-align:left; font-size:12px; white-space:nowrap; position:relative}
 .compteurs .en-ligne:not([hidden])::before{width:6px; height:6px; margin-right:5px}
+.compteurs .visites:not([hidden]):not(:first-child){padding-left:12px; margin-left:12px}
+.compteurs .visites:not([hidden]):not(:first-child)::before{content:""; position:absolute; left:0; top:50%; width:1px; height:14px; background:var(--accent); transform:translateY(-50%)}
+.topbar.avec-compteurs .compteurs{position:relative; padding-left:12px; margin-left:12px}
+.topbar.avec-compteurs .compteurs::before, .topbar.avec-compteurs .socials::before{content:""; position:absolute; left:0; top:50%; width:1px; height:18px; background:var(--accent); transform:translateY(-50%)}
+.topbar.avec-compteurs .socials{position:relative; padding-left:12px; margin-left:12px}
+.topbar .socials{flex:0 0 auto}
+/* Téléphone : le bandeau tient sur une ligne (logo masqué, éléments plus petits) */
+@media (max-width: 699px){
+  .topbar{gap:6px}
+  .topbar .brand-line img{display:none}
+  .topbar .brand-name{font-size:14px; letter-spacing:0}
+  .topbar .socials{gap:6px}
+  .topbar .socials a{width:28px; height:28px}
+  .topbar .socials svg{width:14px; height:14px}
+  .compteurs .en-ligne, .compteurs .visites{font-size:11px}
+  .topbar.avec-compteurs .compteurs{padding-left:7px; margin-left:4px}
+  .topbar.avec-compteurs .socials{padding-left:7px; margin-left:4px}
+  .compteurs .visites:not([hidden]):not(:first-child){padding-left:7px; margin-left:7px}
+}
+@media (max-width: 379px){
+  .compteurs .en-ligne, .compteurs .visites{font-size:10px}
+  .topbar .socials a{width:26px; height:26px}
+  .topbar .brand-name{font-size:13px}
+}
+@media (max-width: 379px){
+  .topbar.avec-compteurs .socials{margin-left:6px; padding-left:6px}
+  .compteurs .visites:not([hidden]):not(:first-child){margin-left:5px; padding-left:5px}
+}

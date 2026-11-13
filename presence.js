@@ -12,8 +12,10 @@
   var entetes = { "apikey": C.supabaseKey, "Authorization": "Bearer " + C.supabaseKey, "Content-Type": "application/json" };
   function afficherVisites(n) {
     if (!zoneVisites) return;
-    zoneVisites.textContent = Number(n).toLocaleString("fr-FR") + " visites depuis le lancement";
+    zoneVisites.textContent = Number(n).toLocaleString("fr-FR") + " visites";
+    zoneVisites.title = "Total des visites depuis le lancement";
     zoneVisites.hidden = false;
+    document.querySelector(".topbar").classList.add("avec-compteurs");
   }
   function lireVisites() {
     fetch(C.supabaseUrl + "/rest/v1/compteur?nom=eq.visites&select=total", { headers: entetes })
@@ -36,8 +38,9 @@
   }
 
   function afficher(n) {
-    zone.textContent = n + (n > 1 ? " personnes" : " personne") + " en ligne";
+    zone.textContent = n + " en ligne";
     zone.hidden = false;
+    document.querySelector(".topbar").classList.add("avec-compteurs");
   }
 
   var s = document.createElement("script");
