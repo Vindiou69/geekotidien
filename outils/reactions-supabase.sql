@@ -36,3 +36,28 @@ end;
 $$;
 
 grant execute on function incrementer(text, text) to anon;
+
+-- Compteur total de visites (une ligne, incrémentée une fois par session de navigation).
+create table if not exists compteur (
+  nom text primary key,
+  total bigint not null default 0
+);
+insert into compteur (nom, total) values ('visites', 0) on conflict (nom) do nothing;
+alter table compteur enable row level security;
+create policy "lecture compteur" on compteur for select to anon using (true);
+
+create or replace function enregistrer_visite()
+returns bigint
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  t bigint;
+begin
+  update compteur set total = total + 1 where nom = 'visites' returning total into t;
+  return t;
+end;
+$$;
+
+grant execute on function enregistrer_visite() to anon;

@@ -7,6 +7,34 @@
   var zone = document.getElementById("en-ligne");
   if (!zone) return;
 
+  // Total des visites : +1 à l'ouverture d'une session de navigation (un rechargement ne recompte pas).
+  var zoneVisites = document.getElementById("visites");
+  var entetes = { "apikey": C.supabaseKey, "Authorization": "Bearer " + C.supabaseKey, "Content-Type": "application/json" };
+  function afficherVisites(n) {
+    if (!zoneVisites) return;
+    zoneVisites.textContent = Number(n).toLocaleString("fr-FR") + " visites depuis le lancement";
+    zoneVisites.hidden = false;
+  }
+  function lireVisites() {
+    fetch(C.supabaseUrl + "/rest/v1/compteur?nom=eq.visites&select=total", { headers: entetes })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (l) { if (l[0]) afficherVisites(l[0].total); })
+      .catch(function () {});
+  }
+  var dejaCompte = false;
+  try { dejaCompte = sessionStorage.getItem("visite-comptee") === "1"; } catch (e) {}
+  if (dejaCompte) {
+    lireVisites();
+  } else {
+    fetch(C.supabaseUrl + "/rest/v1/rpc/enregistrer_visite", { method: "POST", headers: entetes })
+      .then(function (r) { if (!r.ok) throw new Error("erreur"); return r.json(); })
+      .then(function (n) {
+        afficherVisites(n);
+        try { sessionStorage.setItem("visite-comptee", "1"); } catch (e) {}
+      })
+      .catch(lireVisites);
+  }
+
   function afficher(n) {
     zone.textContent = "● " + n + (n > 1 ? " personnes" : " personne") + " en ligne";
     zone.hidden = false;
