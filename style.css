@@ -498,3 +498,12 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
   .topbar.avec-compteurs .compteurs{padding:0 5px; gap:5px}
   .compteurs .visites:not([hidden]):not(:first-child){padding-left:5px}
 }
+/* Logo visible sur téléphone (plus petit) */
+@media (max-width: 699px){
+  .topbar .brand-line{gap:6px}
+  .topbar .brand-line img{display:block; width:28px; height:28px}
+}
+@media (max-width: 699px){
+  .topbar .brand-line .brand-name{display:none}
+  .topbar .brand-line img{width:34px; height:34px}
+}
