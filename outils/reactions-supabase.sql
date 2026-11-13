@@ -77,6 +77,8 @@ create policy "publier commentaire" on commentaires for insert to anon
     news ~ '^\d{4}-\d{2}-\d{2}-\d{1,2}$'
     and char_length(pseudo) between 1 and 40
     and char_length(texte) between 2 and 1000
+    and texte !~* 'https?://|www\.'
+    and pseudo !~* 'https?://|www\.'
   );
 -- Tout commentaire publié est lisible.
 drop policy if exists "lire commentaires approuves" on commentaires;

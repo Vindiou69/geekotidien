@@ -118,10 +118,22 @@
     var bouton = el("button", "Envoyer", "partage-bouton");
     bouton.type = "submit";
     var retour = el("p", "", "commentaire-retour");
-    form.appendChild(pseudo); form.appendChild(texte); form.appendChild(bouton); form.appendChild(retour);
+    // Champ piège : invisible pour les visiteurs, rempli seulement par les robots.
+    var piege = document.createElement("input");
+    piege.type = "text"; piege.name = "site_web"; piege.tabIndex = -1; piege.autocomplete = "off";
+    piege.setAttribute("aria-hidden", "true");
+    piege.style.cssText = "position:absolute;left:-10000px;width:1px;height:1px;opacity:0";
+    var ouvert = Date.now();
+    form.appendChild(pseudo); form.appendChild(texte); form.appendChild(piege); form.appendChild(bouton); form.appendChild(retour);
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (piege.value) { retour.textContent = "Merci ! Votre commentaire est publié."; form.reset(); return; }
       if (!pseudo.value.trim() || !texte.value.trim()) return;
+      if (Date.now() - ouvert < 3000) { retour.textContent = "Merci de patienter quelques secondes avant d'envoyer."; return; }
+      var dernier = 0;
+      try { dernier = Number(localStorage.getItem("commentaire:dernier")) || 0; } catch (x) {}
+      if (Date.now() - dernier < 60000) { retour.textContent = "Merci de patienter une minute entre deux commentaires."; return; }
+      if (/https?:\/\/|www\./i.test(pseudo.value + " " + texte.value)) { retour.textContent = "Les liens ne sont pas autorisés dans les commentaires."; return; }
       bouton.disabled = true;
       fetch(CFG.supabaseUrl + "/rest/v1/commentaires", {
         method: "POST",
@@ -130,6 +142,7 @@
       }).then(function (r) {
         if (!r.ok) throw new Error("erreur");
         retour.textContent = "Merci ! Votre commentaire est publié.";
+        try { localStorage.setItem("commentaire:dernier", String(Date.now())); } catch (x) {}
         form.reset();
       }).catch(function () {
         retour.textContent = "Envoi impossible pour le moment, réessayez plus tard.";
