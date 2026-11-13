@@ -370,7 +370,9 @@ a.partage-bouton{text-decoration:none; display:inline-block}
 }
 
 /* ---- Bloc contact ---- */
-.contact{margin:32px 0 28px; text-align:center; font-size:13px; color:var(--muted)}
+.contact{margin:32px 0 28px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px 16px; text-align:center; font-size:13px; color:var(--muted)}
+.contact > p{margin:0}
+@media (min-width: 700px){ .contact{width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw)} }
 .contact a{color:var(--accent); font-weight:600}
 .contact-adresse{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center}
 .contact-adresse span{font-family:inherit; color:var(--fg)}
