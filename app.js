@@ -161,7 +161,9 @@
     nav.appendChild(accueil);
     var publiees = {};
     index.forEach(function (e) { publiees[e.date] = true; });
+    var aujourdhuiIso = jourParis();
     sept_derniers().forEach(function (iso) {
+      if (iso === aujourdhuiIso) return; // remplacé par « Aujourd'hui »
       var d = new Date(iso + "T12:00:00");
       var libelle = d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "numeric" });
       if (publiees[iso]) {
@@ -187,13 +189,15 @@
   function setOnglet(date, archives, accueil) {
     var nav = document.getElementById("onglets");
     if (!nav) return;
+    var estAujourdhui = !!date && date === jourParis();
     Array.prototype.forEach.call(nav.querySelectorAll("a"), function (a) {
       var actif = archives ? a.id === "onglet-archives"
-        : accueil ? a.id === "onglet-accueil"
+        : (accueil || estAujourdhui) ? a.id === "onglet-accueil"
         : (!!date && a.dataset.date === date);
       a.classList.toggle("on", actif);
     });
   }
+
 
   // Affiche une édition complète (couverture + grille) ; titre de date en tête.
   function afficherEdition(date) {
