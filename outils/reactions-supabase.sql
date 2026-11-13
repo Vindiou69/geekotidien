@@ -68,14 +68,17 @@ create table if not exists commentaires (
   approuve boolean not null default true,
   created_at timestamptz not null default now()
 );
+alter table commentaires alter column approuve set default true;
 alter table commentaires enable row level security;
--- Un visiteur peut publier, mais uniquement en attente de validation et avec des longueurs raisonnables.
+-- Un visiteur peut publier, avec des longueurs raisonnables.
+drop policy if exists "publier commentaire" on commentaires;
 create policy "publier commentaire" on commentaires for insert to anon
   with check (
     news ~ '^\d{4}-\d{2}-\d{2}-\d{1,2}$'
     and char_length(pseudo) between 1 and 40
     and char_length(texte) between 2 and 1000
   );
--- Seuls les commentaires validés sont lisibles.
+-- Tout commentaire publié est lisible.
+drop policy if exists "lire commentaires approuves" on commentaires;
 create policy "lire commentaires approuves" on commentaires for select to anon using (approuve = true);
 grant select, insert on commentaires to anon;
