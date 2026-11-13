@@ -170,6 +170,7 @@
     }
     // Lien partagé : une page par news, avec aperçu (titre, visuel) pour Facebook, TikTok, WhatsApp…
     var lien = BASE + "/n/" + n.__date + "-" + n.__num + ".html";
+    var titrePartage = (n.titre || "News") + " · Geekotidien";
     var zoneLien = document.createElement("div");
     zoneLien.className = "partage";
     var bouton = el("button", "Copier le lien (Instagram, TikTok)", "partage-bouton");
@@ -181,8 +182,23 @@
       else ko();
     });
     zoneLien.appendChild(bouton);
+    // Sur téléphone : menu de partage natif (Instagram, TikTok… avec le visuel et le texte).
+    if (navigator.share) {
+      var natif = document.createElement("button");
+      natif.type = "button"; natif.className = "partage-bouton"; natif.textContent = "Partager (téléphone)";
+      natif.addEventListener("click", function () {
+        var donnees = { title: titrePartage, text: n.sous_titre || n.titre || "", url: lien };
+        var prepare = n.photo
+          ? fetch(n.photo).then(function (r) { return r.blob(); }).then(function (bl) {
+              var fichier = new File([bl], "geekotidien.jpg", { type: bl.type || "image/jpeg" });
+              if (navigator.canShare && navigator.canShare({ files: [fichier] })) donnees.files = [fichier];
+            }).catch(function () {})
+          : Promise.resolve();
+        prepare.then(function () { return navigator.share(donnees); }).catch(function () {});
+      });
+      zoneLien.insertBefore(natif, zoneLien.firstChild);
+    }
     // Partage direct : Facebook et LinkedIn ont un lien de partage web. Instagram et TikTok n'en ont pas : utiliser « Copier le lien ».
-    var titrePartage = (n.titre || "News") + " · Geekotidien";
     [["Partager sur Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(lien)],
      ["Partager sur LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(lien)],
      ["Partager sur X", "https://twitter.com/intent/tweet?text=" + encodeURIComponent(titrePartage) + "&url=" + encodeURIComponent(lien)],
