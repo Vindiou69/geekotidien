@@ -1,15 +1,15 @@
 // Édition du 12/11/2026. Une édition = date, couverture, news.
 (window.EDITIONS = window.EDITIONS || {})["2026-11-12"] = {
   "date": "2026-11-12",
-  "cover": "news/cover.jpg",
+  "cover": "news/2026-11-12/cover.jpg",
   "news": [
     {
       "titre": "Cyberattaque iranienne en France",
       "verifiee": true,
       "sous_titre": "Des contrôleurs de froid visés dans environ 700 supermarchés, l'Iran accusé",
-      "photo": "news/photo-2.jpg",
+      "photo": "news/2026-11-12/photo-2.jpg",
       "article": [
-        "Dans la nuit du 11 au 12 octobre 2026, les contrôleurs de froid de plus de 700 sites de distribution en France ont été visés par une cyberattaque. Selon le ministère des Affaires étrangères, il s'agit de la première campagne cyberoffensive menée uniquement à des fins de sabotage sur le territoire national.",
+        "Dans la nuit du 11 au 12 novembre 2026, les contrôleurs de froid de plus de 700 sites de distribution en France ont été visés par une cyberattaque. Selon le ministère des Affaires étrangères, il s'agit de la première campagne cyberoffensive menée uniquement à des fins de sabotage sur le territoire national.",
         "Les victimes comprennent de grandes enseignes (Casino, Leclerc, Coopérative U, Metro, Carrefour, Intermarché), mais aussi de petites boucheries, un abattoir, des coopératives agroalimentaires et de petites centrales hydroélectriques. L'attaque visait des contrôleurs Danfoss et modifiait leurs réglages de dégivrage. Au moins 15 départs de feu ont été recensés, et les pertes alimentaires sont estimées à plusieurs dizaines de millions d'euros.",
         "Le 9 novembre 2026, le ministère des Affaires étrangères a attribué l'opération à l'Iran. Elle aurait été menée par l'unité de cyberoffensive Shahid Kaveh, affiliée au centre cyber des Gardiens de la révolution islamique. Le C4, centre de coordination des crises cyber, a fourni l'évaluation technique. L'attribution repose sur un faisceau d'indices, et non sur une preuve formelle.",
         "La France a convoqué l'ambassadeur d'Iran et proposera de nouvelles sanctions européennes. Le parquet de Paris a ouvert une enquête judiciaire et demandé des mandats d'arrêt internationaux contre des dirigeants des Gardiens de la révolution. Ces mandats n'ont pas encore été délivrés."
@@ -30,7 +30,7 @@
       "titre": "Bruxelles vise TikTok",
       "verifiee": true,
       "sous_titre": "Conclusions préliminaires du DSA sur le fil « Pour toi »",
-      "photo": "news/photo-3.jpg",
+      "photo": "news/2026-11-12/photo-3.jpg",
       "article": [
         "Le 6 novembre 2026, la Commission européenne a adressé à TikTok des conclusions préliminaires : selon elle, le fil « Pour toi » ne respecte pas le Règlement sur les services numériques (DSA). La procédure formelle avait été ouverte le 19 février 2024.",
         "La Commission reproche à TikTok de ne pas avoir correctement évalué le risque que son algorithme enferme les utilisateurs dans des spirales de contenus, avec des effets sur leur bien-être, en particulier chez les mineurs et les personnes vulnérables. Le système traiterait le temps de visionnage comme un signal d'intérêt, et le bouton « Pas intéressé » ne suffirait pas à modifier le fil.",
@@ -48,7 +48,7 @@
       "verifiee": false,
       "titre": "OpenAI dévoile Control Room",
       "sous_titre": "Un coupe-circuit pour ses modèles de recherche internes",
-      "photo": "news/photo-4.jpg",
+      "photo": "news/2026-11-12/photo-4.jpg",
       "article": [
         "OpenAI a présenté Control Room, un système d'arrêt d'urgence pour ses modèles de recherche internes. D'après l'entreprise, il permet d'interrompre les tâches en cours en 35 secondes au maximum, à partir de la décision d'intervention. Cointelegraph date l'annonce du 10 novembre 2026 ; le billet officiel a été publié un lundi, probablement le 9 novembre.",
         "Le système couvre les tâches de recherche internes d'OpenAI, comme les expériences d'entraînement, les évaluations et le traitement de données. Des autorisations mises en cache peuvent retarder l'arrêt jusqu'à cette durée. L'article ne précise pas explicitement si les modèles accessibles au public sont concernés, ce qui suggère qu'ils ne le sont pas.",
@@ -74,11 +74,11 @@
       "titre": "Reset gratuit des limites",
       "verifiee": true,
       "sous_titre": "Pour les abonnés Claude payants, à activer avant le 10 décembre 2026",
-      "photo": "news/photo-5.jpg",
+      "photo": "news/2026-11-12/photo-5.jpg",
       "article": [
         "Anthropic offre à ses abonnés payants une réinitialisation gratuite de leurs limites d'utilisation. Elle concerne les formules Pro, Max, Ultra et Team. Selon Brief IA, l'offre a été communiquée par Anthropic sur X.",
         "Pour en profiter, il faut l'activer avant le 10 décembre 2026 à 23 h. Elle ne peut être utilisée qu'une seule fois. Sur le web, rendez-vous sur clau.de/reset et cliquez sur « Réinitialiser gratuitement ». Dans l'application, ouvrez le menu Utilisation, accessible depuis votre nom en bas à gauche.",
-        "Les comptes gratuits ne sont pas mentionnés dans les informations disponibles. Je n'ai pas pu consulter directement la publication d'Anthropic : vérifiez les conditions sur leur site avant d'activer."
+        "Les comptes gratuits ne sont pas mentionnés dans les informations disponibles. Vérifiez les conditions sur le site d'Anthropic avant d'activer."
       ],
       "le_plus": "Menu Utilisation dans l'application, ou le lien clau.de/reset sur le web.",
       "sources": [
@@ -92,7 +92,7 @@
       "verifiee": false,
       "titre": "Ocarina of Time bat un record",
       "sous_titre": "Plus de 5,2 millions d'exemplaires vendus en quatre jours",
-      "photo": "news/photo-6.jpg",
+      "photo": "news/2026-11-12/photo-6.jpg",
       "article": [
         "Le remake de The Legend of Zelda: Ocarina of Time, sorti dans le monde entier le 5 novembre 2026, dépasse les 5,2 millions d'exemplaires vendus en quatre jours. Ce chiffre est celui de Nintendo, cité dans la presse spécialisée. Il inclut les ventes physiques et numériques.",
         "Le Japon en représente 810 000, selon l'article de Notebookcheck. La répartition entre formats physiques et numériques n'est pas détaillée.",
