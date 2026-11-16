@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-16",
+    "titres": [
+      "Piratage DGFiP",
+      "Fusion ondes hélicon",
+      "Sabre Dark Vador",
+      "IA circuits quantiques",
+      "Half-Life 2 Ep. 3"
+    ]
+  },
+  {
     "date": "2026-11-13",
     "titres": [
       "GTA VI, 1 milliard",
