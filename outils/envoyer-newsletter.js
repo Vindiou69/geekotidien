@@ -101,7 +101,7 @@ function construireMail(edition) {
     `Mentions légales : ${SITE}/mentions-legales.html`
   ].join('\n');
 
-  return { sujet: `Tes ${nombre} news tech du jour`, html, texte };
+  return { sujet: `📰 Tes ${nombre} news tech du jour`, html, texte };
 }
 
 // Appels via curl : curl respecte le proxy de l'environnement (HTTPS_PROXY),
