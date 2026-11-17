@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-17",
+    "titres": [
+      "Console transparente Arduview",
+      "Fuite géante La Poste",
+      "Meta condamnée 805 M€",
+      "ChatGPT Wallet",
+      "Lunettes connectées Apple"
+    ]
+  },
+  {
     "date": "2026-11-16",
     "titres": [
       "Piratage DGFiP",
