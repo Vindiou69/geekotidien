@@ -1,0 +1,53 @@
+name: Envoyer la newsletter Geekotidien
+
+# Déclenchement manuel uniquement, depuis l'onglet Actions du dépôt.
+# Mode « test » : envoi à UNE adresse (TEST_EMAIL).
+# Mode « liste » : envoi réel à la liste Mailjet, seulement si « confirmer » vaut oui.
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date de l'édition (AAAA-MM-JJ)"
+        required: true
+        type: string
+      mode:
+        description: "test ou liste"
+        required: true
+        type: choice
+        options:
+          - test
+          - liste
+      confirmer:
+        description: "Tape oui pour autoriser l'envoi à la liste (mode liste)"
+        required: false
+        type: string
+        default: non
+
+permissions:
+  contents: read
+
+jobs:
+  envoyer:
+    runs-on: ubuntu-latest
+    env:
+      MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
+      MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
+      MAILJET_LIST_ID: ${{ secrets.MAILJET_LIST_ID }}
+      TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+      CONFIRMER: ${{ inputs.confirmer }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier les paramètres
+        run: |
+          if [ "${{ inputs.mode }}" = "liste" ] && [ "${{ inputs.confirmer }}" != "oui" ]; then
+            echo "Envoi à la liste refusé : relancer avec confirmer=oui."; exit 1
+          fi
+
+      - name: Envoi de la newsletter
+        run: |
+          if [ "${{ inputs.mode }}" = "test" ]; then
+            node outils/envoyer-newsletter.js "${{ inputs.date }}" --test "$TEST_EMAIL"
+          else
+            node outils/envoyer-newsletter.js "${{ inputs.date }}" --liste
+          fi

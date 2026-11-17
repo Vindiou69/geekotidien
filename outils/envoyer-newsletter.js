@@ -104,8 +104,14 @@ function construireMail(edition) {
 // Appels via curl : curl respecte le proxy de l'environnement (HTTPS_PROXY),
 // contrairement à fetch de Node.js, qui échouait avec « fetch failed ».
 function appeler(chemin, corps) {
+  // Si MAILJET_API_KEY et MAILJET_API_SECRET sont définies (GitHub Actions), elles servent
+  // d'authentification Basic. Sinon, le proxy de l'environnement l'ajoute.
+  const auth = process.env.MAILJET_API_KEY && process.env.MAILJET_API_SECRET
+    ? ['-u', `${process.env.MAILJET_API_KEY}:${process.env.MAILJET_API_SECRET}`]
+    : [];
   const resultat = require('child_process').spawnSync('curl', [
     '-sS', '-X', 'POST', API + chemin,
+    ...auth,
     '-H', 'Content-Type: application/json',
     '--data-binary', '@-',
     '-w', '\n%{http_code}'
