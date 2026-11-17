@@ -507,3 +507,8 @@ a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
   .topbar .brand-line .brand-name{display:none}
   .topbar .brand-line img{width:34px; height:34px}
 }
+
+/* Bloc d'inscription à la newsletter (formulaire Mailjet) */
+.newsletter{max-width:560px; margin:28px auto; text-align:center}
+.newsletter h2{display:table; margin:0 auto 12px}
+.newsletter iframe{display:block; width:100%; border:1px solid var(--line); border-radius:12px}
