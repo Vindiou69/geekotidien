@@ -49,12 +49,9 @@ function construireMail(edition) {
   const blocs = edition.news.map((n, i) => {
     const premier = (n.article && n.article[0]) || '';
     const source = (n.sources && n.sources[0]) || null;
-    const alerte = n.verifiee === false
-      ? '<span style="color:#9a5b00;font-size:12px;">À vérifier</span>'
-      : '';
     return `
       <tr><td style="padding:18px 0;border-top:1px solid #d8d6cc;font-family:Arial,Helvetica,sans-serif;color:#15181b;">
-        <div style="font-size:12px;color:#5b646d;">N°${i + 1} ${alerte}</div>
+        <div style="font-size:12px;color:#5b646d;">N°${i + 1}</div>
         <h2 style="font-size:18px;margin:6px 0;color:#15181b;">${echapper(n.titre)}</h2>
         <p style="font-size:14px;color:#5b646d;margin:0 0 8px;">${echapper(n.sous_titre || '')}</p>
         <p style="font-size:15px;line-height:1.5;margin:0 0 10px;color:#15181b;">${echapper(premier)}</p>
@@ -91,8 +88,7 @@ function construireMail(edition) {
     '',
     ...edition.news.map((n, i) => {
       const premier = (n.article && n.article[0]) || '';
-      const alerte = n.verifiee === false ? ' (à vérifier)' : '';
-      return `${i + 1}. ${n.titre}${alerte}\n${n.sous_titre || ''}\n${premier}\nLire sur ${SITE}\n`;
+      return `${i + 1}. ${n.titre}\n${n.sous_titre || ''}\n${premier}\nLire sur ${SITE}\n`;
     }),
     'Se désabonner : [[UNSUB_LINK_EN]]',
     `Mentions légales : ${SITE}/mentions-legales.html`
