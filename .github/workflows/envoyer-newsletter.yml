@@ -1,14 +1,17 @@
 name: Envoyer la newsletter Geekotidien
 
-# Déclenchement manuel uniquement, depuis l'onglet Actions du dépôt.
-# Mode « test » : envoi à UNE adresse (TEST_EMAIL).
-# Mode « liste » : envoi réel à la liste Mailjet, seulement si « confirmer » vaut oui.
+# Automatique : chaque jour de semaine à 8h30 (heure de Paris).
+# Deux horaires UTC pour suivre l'heure d'été et d'hiver ; seul celui qui tombe à 8h Paris agit.
+# Manuel : onglet Actions > Run workflow (mode test ou liste).
 on:
+  schedule:
+    - cron: '30 6 * * 1-5'
+    - cron: '30 7 * * 1-5'
   workflow_dispatch:
     inputs:
       date:
-        description: "Date de l'édition (AAAA-MM-JJ)"
-        required: true
+        description: "Date de l'édition (AAAA-MM-JJ). Vide = aujourd'hui."
+        required: false
         type: string
       mode:
         description: "test ou liste"
@@ -18,7 +21,7 @@ on:
           - test
           - liste
       confirmer:
-        description: "Tape oui pour autoriser l'envoi à la liste (mode liste)"
+        description: "Tape oui pour autoriser l'envoi à la liste (mode liste manuel)"
         required: false
         type: string
         default: non
@@ -34,20 +37,56 @@ jobs:
       MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
       MAILJET_LIST_ID: ${{ secrets.MAILJET_LIST_ID }}
       TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
-      CONFIRMER: ${{ inputs.confirmer }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Vérifier les paramètres
+      - name: Préparer l'envoi
+        id: prep
+        env:
+          EVENEMENT: ${{ github.event_name }}
+          DATE_MANUELLE: ${{ inputs.date }}
+          MODE_MANUEL: ${{ inputs.mode }}
+          CONFIRMER_MANUEL: ${{ inputs.confirmer }}
         run: |
-          if [ "${{ inputs.mode }}" = "liste" ] && [ "${{ inputs.confirmer }}" != "oui" ]; then
-            echo "Envoi à la liste refusé : relancer avec confirmer=oui."; exit 1
+          if [ "$EVENEMENT" = "schedule" ]; then
+            if [ "$(TZ=Europe/Paris date +%H)" != "08" ]; then
+              echo "Pas 8h à Paris : envoi ignoré à ce passage."
+              echo "run=non" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            echo "mode=liste" >> "$GITHUB_OUTPUT"
+            echo "confirmer=oui" >> "$GITHUB_OUTPUT"
+            DATE=$(TZ=Europe/Paris date +%F)
+          else
+            echo "mode=$MODE_MANUEL" >> "$GITHUB_OUTPUT"
+            echo "confirmer=$CONFIRMER_MANUEL" >> "$GITHUB_OUTPUT"
+            DATE="$DATE_MANUELLE"
+            if [ -z "$DATE" ]; then DATE=$(TZ=Europe/Paris date +%F); fi
+          fi
+          if [ ! -f "data/editions/$DATE.js" ]; then
+            echo "Édition $DATE absente du dépôt : aucun envoi."; exit 1
+          fi
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+          echo "run=oui" >> "$GITHUB_OUTPUT"
+
+      - name: Vérifier les paramètres
+        if: steps.prep.outputs.run == 'oui'
+        env:
+          MODE: ${{ steps.prep.outputs.mode }}
+          CONFIRMER_PARAM: ${{ steps.prep.outputs.confirmer }}
+        run: |
+          if [ "$MODE" = "liste" ] && [ "$CONFIRMER_PARAM" != "oui" ]; then
+            echo "Envoi à la liste refusé : confirmer=oui requis."; exit 1
           fi
 
       - name: Envoi de la newsletter
+        if: steps.prep.outputs.run == 'oui'
+        env:
+          MODE: ${{ steps.prep.outputs.mode }}
+          DATE: ${{ steps.prep.outputs.date }}
+          CONFIRMER: ${{ steps.prep.outputs.confirmer }}
         run: |
-          if [ "${{ inputs.mode }}" = "test" ]; then
-            node outils/envoyer-newsletter.js "${{ inputs.date }}" --test "$TEST_EMAIL"
+          if [ "$MODE" = "test" ]; then
+            node outils/envoyer-newsletter.js "$DATE" --test "$TEST_EMAIL"
           else
-            node outils/envoyer-newsletter.js "${{ inputs.date }}" --liste
+            CONFIRMER=$CONFIRMER node outils/envoyer-newsletter.js "$DATE" --liste
           fi

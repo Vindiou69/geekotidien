@@ -1,0 +1,35 @@
+name: Mettre à jour le compteur d'abonnés
+
+# Chaque jour à 9h (heure de Paris environ) et à la demande.
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  compteur:
+    runs-on: ubuntu-latest
+    env:
+      MAILJET_API_KEY: ${{ secrets.MAILJET_API_KEY }}
+      MAILJET_API_SECRET: ${{ secrets.MAILJET_API_SECRET }}
+      MAILJET_LIST_ID: ${{ secrets.MAILJET_LIST_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compter les abonnés
+        run: node outils/compter-abonnes.js
+
+      - name: Enregistrer le compteur s'il a changé
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/abonnes.json
+          if git diff --cached --quiet; then
+            echo "Compteur inchangé."
+          else
+            git commit -m "Compteur d'abonnés mis à jour"
+            git push
+          fi
