@@ -59,7 +59,7 @@ function construireMail(edition) {
         <h2 style="font-size:18px;margin:6px 0;"><a href="${lien(n, i)}" style="color:#15181b;text-decoration:none;">${echapper(n.titre)}</a></h2>
         <p style="font-size:14px;color:#5b646d;margin:0 0 8px;">${echapper(n.sous_titre || '')}</p>
         <p style="font-size:15px;line-height:1.5;margin:0 0 10px;color:#15181b;">${echapper(premier)}</p>
-        ${source ? `<p style="font-size:13px;margin:0;"><a href="${echapper(source.url)}" style="color:#18795a;">Source : ${echapper(source.nom)}</a></p>` : ''}
+        ${source ? `<p style="font-size:13px;margin:0;color:#5b646d;">Source : ${echapper(source.nom)}</p>` : ''}
       </td></tr>`;
   }).join('');
 
