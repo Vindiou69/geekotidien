@@ -101,20 +101,28 @@ function construireMail(edition) {
   return { sujet: `Geekotidien : édition du ${titreDate}`, html, texte };
 }
 
-async function appeler(chemin, corps) {
-  const reponse = await fetch(API + chemin, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(corps)
-  });
-  const texte = await reponse.text();
-  if (!reponse.ok) throw new Error(`Mailjet ${reponse.status} sur ${chemin} : ${texte}`);
+// Appels via curl : curl respecte le proxy de l'environnement (HTTPS_PROXY),
+// contrairement à fetch de Node.js, qui échouait avec « fetch failed ».
+function appeler(chemin, corps) {
+  const resultat = require('child_process').spawnSync('curl', [
+    '-sS', '-X', 'POST', API + chemin,
+    '-H', 'Content-Type: application/json',
+    '--data-binary', '@-',
+    '-w', '\n%{http_code}'
+  ], { input: JSON.stringify(corps), encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+  if (resultat.error) throw new Error(`curl introuvable ou en échec : ${resultat.error.message}`);
+  if (resultat.status !== 0) throw new Error(`curl a échoué (code ${resultat.status}) : ${resultat.stderr.trim()}`);
+  const sortie = resultat.stdout;
+  const cut = sortie.lastIndexOf('\n');
+  const texte = sortie.slice(0, cut);
+  const code = Number(sortie.slice(cut + 1));
+  if (code < 200 || code >= 300) throw new Error(`Mailjet ${code} sur ${chemin} : ${texte}`);
   return JSON.parse(texte);
 }
 
 // Essai : un seul destinataire, via l'API d'envoi transactionnel (v3.1).
-async function envoyerTest(mail, adresse) {
-  const resultat = await appeler('/v3.1/send', {
+function envoyerTest(mail, adresse) {
+  const resultat = appeler('/v3.1/send', {
     Messages: [{
       From: EXPEDITEUR,
       To: [{ Email: adresse }],
@@ -127,8 +135,8 @@ async function envoyerTest(mail, adresse) {
 }
 
 // Envoi réel : campagne vers la liste « Geekotidien ».
-async function envoyerListe(mail, idListe) {
-  const brouillon = await appeler('/v3/REST/campaigndraft', {
+function envoyerListe(mail, idListe) {
+  const brouillon = appeler('/v3/REST/campaigndraft', {
     Subject: mail.sujet,
     Title: mail.sujet,
     FromEmail: EXPEDITEUR.Email,
@@ -137,15 +145,15 @@ async function envoyerListe(mail, idListe) {
     ContactsListID: Number(idListe)
   });
   const id = brouillon.Data[0].ID;
-  await appeler(`/v3/REST/campaigndraft/${id}/detailcontent`, {
+  appeler(`/v3/REST/campaigndraft/${id}/detailcontent`, {
     'Html-part': mail.html,
     'Text-part': mail.texte
   });
-  const envoi = await appeler(`/v3/REST/campaigndraft/${id}/send`, {});
+  const envoi = appeler(`/v3/REST/campaigndraft/${id}/send`, {});
   console.log('Campagne envoyée :', JSON.stringify(envoi));
 }
 
-async function principal() {
+function principal() {
   const [date, mode, valeur] = process.argv.slice(2);
   if (!date || !mode) {
     console.error('Usage : node outils/envoyer-newsletter.js AAAA-MM-JJ --test adresse | --liste');
@@ -156,7 +164,7 @@ async function principal() {
 
   if (mode === '--test') {
     if (!valeur) throw new Error('Indiquer une adresse pour --test');
-    await envoyerTest(mail, valeur);
+    envoyerTest(mail, valeur);
     return;
   }
   if (mode === '--liste') {
@@ -165,13 +173,15 @@ async function principal() {
     }
     const idListe = process.env.MAILJET_LIST_ID;
     if (!idListe) throw new Error('Variable MAILJET_LIST_ID manquante');
-    await envoyerListe(mail, idListe);
+    envoyerListe(mail, idListe);
     return;
   }
   throw new Error(`Mode inconnu : ${mode}`);
 }
 
-principal().catch((erreur) => {
+try {
+  principal();
+} catch (erreur) {
   console.error(erreur.message);
   process.exit(1);
-});
+}
