@@ -46,36 +46,41 @@ function dateFr(date) {
 
 function construireMail(edition) {
   const titreDate = dateFr(edition.date);
+  const nombre = edition.news.length;
+  const intro = `Tes ${nombre} news tech et geek du jour, à lire en quelques minutes.`;
+  const lien = (n, i) => `${SITE}/#${edition.date}/${i + 1}`;
+
   const blocs = edition.news.map((n, i) => {
     const premier = (n.article && n.article[0]) || '';
     const source = (n.sources && n.sources[0]) || null;
     return `
       <tr><td style="padding:18px 0;border-top:1px solid #d8d6cc;font-family:Arial,Helvetica,sans-serif;color:#15181b;">
         <div style="font-size:12px;color:#5b646d;">N°${i + 1}</div>
-        <h2 style="font-size:18px;margin:6px 0;color:#15181b;">${echapper(n.titre)}</h2>
+        <h2 style="font-size:18px;margin:6px 0;"><a href="${lien(n, i)}" style="color:#15181b;text-decoration:none;">${echapper(n.titre)}</a></h2>
         <p style="font-size:14px;color:#5b646d;margin:0 0 8px;">${echapper(n.sous_titre || '')}</p>
         <p style="font-size:15px;line-height:1.5;margin:0 0 10px;color:#15181b;">${echapper(premier)}</p>
-        ${source ? `<p style="font-size:13px;margin:0 0 10px;"><a href="${echapper(source.url)}" style="color:#18795a;">Source : ${echapper(source.nom)}</a></p>` : ''}
-        <p style="margin:0;"><a href="${SITE}" style="color:#18795a;font-weight:bold;font-size:14px;">Lire sur geekotidien.fr</a></p>
+        ${source ? `<p style="font-size:13px;margin:0;"><a href="${echapper(source.url)}" style="color:#18795a;">Source : ${echapper(source.nom)}</a></p>` : ''}
       </td></tr>`;
   }).join('');
 
   const html = `<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;background:#f4f3ee;">
+  <div style="display:none;max-height:0;overflow:hidden;">Les news tech et geek du jour, en un coup d'œil.</div>
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f3ee;padding:24px 0;">
     <tr><td align="center">
       <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;padding:24px;">
         <tr><td align="center" style="padding-bottom:12px;">
-          <img src="${SITE}/geekotidien-logo.png" width="96" height="96" alt="Geekotidien" style="border-radius:50%;">
+          <a href="${SITE}"><img src="${SITE}/geekotidien-logo.png" width="96" height="96" alt="Geekotidien" style="border-radius:50%;border:0;"></a>
         </td></tr>
         <tr><td align="center" style="font-family:Arial,Helvetica,sans-serif;color:#15181b;">
           <h1 style="font-size:22px;margin:0 0 4px;color:#18795a;">Geekotidien</h1>
-          <p style="font-size:14px;color:#5b646d;margin:0 0 16px;">${echapper(titreDate)}</p>
+          <p style="font-size:14px;color:#5b646d;margin:0 0 12px;">${echapper(titreDate)}</p>
+          <p style="font-size:15px;margin:0 0 8px;">${echapper(intro)}</p>
         </td></tr>
         ${blocs}
         <tr><td style="padding-top:18px;border-top:1px solid #d8d6cc;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#5b646d;line-height:1.5;">
-          <p style="margin:0 0 8px;">Vous recevez ce mail car vous vous êtes inscrit à la newsletter Geekotidien.</p>
+          <p style="margin:0 0 8px;">Tu reçois ce mail parce que tu t'es inscrit à la newsletter Geekotidien.</p>
           <p style="margin:0 0 8px;"><a href="[[UNSUB_LINK_EN]]" style="color:#18795a;">Se désabonner</a> · <a href="${SITE}/mentions-legales.html" style="color:#18795a;">Mentions légales</a> · <a href="mailto:contact@geekotidien.fr" style="color:#18795a;">contact@geekotidien.fr</a></p>
         </td></tr>
       </table>
@@ -86,15 +91,17 @@ function construireMail(edition) {
   const texte = [
     `Geekotidien : ${titreDate}`,
     '',
+    intro,
+    '',
     ...edition.news.map((n, i) => {
       const premier = (n.article && n.article[0]) || '';
-      return `${i + 1}. ${n.titre}\n${n.sous_titre || ''}\n${premier}\nLire sur ${SITE}\n`;
+      return `${i + 1}. ${n.titre}\n${n.sous_titre || ''}\n${premier}\nLire : ${lien(n, i)}\n`;
     }),
     'Se désabonner : [[UNSUB_LINK_EN]]',
     `Mentions légales : ${SITE}/mentions-legales.html`
   ].join('\n');
 
-  return { sujet: `Geekotidien : édition du ${titreDate}`, html, texte };
+  return { sujet: `Tes ${nombre} news tech du jour`, html, texte };
 }
 
 // Appels via curl : curl respecte le proxy de l'environnement (HTTPS_PROXY),
