@@ -125,7 +125,7 @@ progress{accent-color:var(--accent); transition:all .3s ease}
 @media (prefers-reduced-motion: reduce){*{transition:none!important; animation:none!important}}
 
 /* ---- Style terminal : typographie monospace, quadrillage, scanlines, messages d'état ---- */
-body{font-family:"Inter", system-ui, sans-serif; font-size:15px;
+body{overflow-x:clip; font-family:"Inter", system-ui, sans-serif; font-size:15px;
   background-image:none}
 /* Fond « matrix » : colonnes de 0 et de 1 qui descendent depuis le haut, dans la couleur d'accent du site. Les cartes restent pleines par-dessus. */
 #matrix{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none}
