@@ -6,7 +6,7 @@
     {
       "verifiee": true,
       "photo": "news/2026-11-19/photo-2.jpg",
-      "titre": "Panne iCloud : Apple, App Store et Apple Pay touchés",
+      "titre": "Panne iCloud chez Apple",
       "sous_titre": "Apple reconnaît un incident sur la connexion aux comptes iCloud",
       "article": [
         "Mardi soir, des utilisateurs d'Apple signalent une panne de connexion aux comptes iCloud, sur iPhone comme sur Mac. Ils sont déconnectés sans raison, puis bloqués par un message de vérification échouée au moment de se reconnecter.",
@@ -25,7 +25,7 @@
     {
       "verifiee": false,
       "photo": "news/2026-11-19/photo-3.jpg",
-      "titre": "Doom tourne sur l'écran d'une clé USB",
+      "titre": "Doom sur clé USB",
       "sous_titre": "Un développeur exploite le micrologiciel d'une puce dont le marquage avait été effacé",
       "article": [
         "Le développeur Aaron Christophel fait tourner Doom sur le petit écran LCD couleur d'une clé USB. Une démonstration filmée le montre, dans un article de Génération NT publié le 17 novembre 2026.",
@@ -44,7 +44,7 @@
     {
       "verifiee": false,
       "photo": "news/2026-11-19/photo-4.jpg",
-      "titre": "Des neurones humains pilotent un robot humanoïde",
+      "titre": "Neurones pilotent un robot",
       "sous_titre": "Des cultures cellulaires plates répondent plus vite que des sphéroïdes 3D",
       "article": [
         "Des chercheurs de Stanford et de la société OpenMind relient le robot humanoïde Iris à des neurones humains cultivés sur des réseaux d'électrodes, en Suisse et en Australie. D'après l'article de Génération NT publié le 17 novembre 2026, ce dispositif fait réagir le robot à des neurones vivants.",
@@ -63,7 +63,7 @@
     {
       "verifiee": true,
       "photo": "news/2026-11-19/photo-5.jpg",
-      "titre": "Shigeru Miyamoto reçoit le premier Legend Award",
+      "titre": "Legend Award pour Miyamoto",
       "sous_titre": "Un prix décerné une fois par décennie aux D.I.C.E. Awards",
       "article": [
         "L'AIAS (Academy of Interactive Arts and Sciences), organisatrice des D.I.C.E. Awards, annonce que Shigeru Miyamoto sera le premier lauréat de son nouveau Legend Award. Il sera remis lors de la 30e édition des D.I.C.E. Awards.",
@@ -82,7 +82,7 @@
     {
       "verifiee": false,
       "photo": "news/2026-11-19/photo-6.jpg",
-      "titre": "Les lunettes Google et Samsung en rupture",
+      "titre": "Lunettes Google en rupture",
       "sous_titre": "Les précommandes sont épuisées chez Gentle Monster",
       "article": [
         "Les précommandes des nouvelles lunettes connectées développées par Google et Samsung avec Gentle Monster et Warby Parker sont épuisées chez Gentle Monster, aux États-Unis et en Corée. Les précommandes ont ouvert le 12 novembre 2026.",
