@@ -148,8 +148,8 @@ function envoyerListe(mail, idListe) {
   const brouillon = appeler('/v3/REST/campaigndraft', {
     Subject: mail.sujet,
     Title: mail.sujet,
-    FromEmail: EXPEDITEUR.Email,
-    FromName: EXPEDITEUR.Name,
+    SenderEmail: EXPEDITEUR.Email,
+    Sender: EXPEDITEUR.Name,
     Locale: 'fr_FR',
     ContactsListID: Number(idListe)
   });
