@@ -1,16 +1,6 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
-    "date": "2026-11-19",
-    "titres": [
-      "Panne iCloud chez Apple",
-      "Doom sur clé USB",
-      "Neurones pilotent un robot",
-      "Legend Award pour Miyamoto",
-      "Lunettes Google en rupture"
-    ]
-  },
-  {
     "date": "2026-11-18",
     "titres": [
       "Google Maps adopte Gemini",
