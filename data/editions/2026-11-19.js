@@ -1,9 +1,11 @@
 // Édition du 19/11/2026 (post n° 33). Une édition = date, news.
 (window.EDITIONS = window.EDITIONS || {})["2026-11-19"] = {
   "date": "2026-11-19",
+  "cover": "news/2026-11-19/cover.jpg",
   "news": [
     {
       "verifiee": true,
+      "photo": "news/2026-11-19/photo-2.jpg",
       "titre": "Panne iCloud : Apple, App Store et Apple Pay touchés",
       "sous_titre": "Apple reconnaît un incident sur la connexion aux comptes iCloud",
       "article": [
@@ -22,6 +24,7 @@
     },
     {
       "verifiee": false,
+      "photo": "news/2026-11-19/photo-3.jpg",
       "titre": "Doom tourne sur l'écran d'une clé USB",
       "sous_titre": "Un développeur exploite le micrologiciel d'une puce dont le marquage avait été effacé",
       "article": [
@@ -40,6 +43,7 @@
     },
     {
       "verifiee": false,
+      "photo": "news/2026-11-19/photo-4.jpg",
       "titre": "Des neurones humains pilotent un robot humanoïde",
       "sous_titre": "Des cultures cellulaires plates répondent plus vite que des sphéroïdes 3D",
       "article": [
@@ -58,6 +62,7 @@
     },
     {
       "verifiee": true,
+      "photo": "news/2026-11-19/photo-5.jpg",
       "titre": "Shigeru Miyamoto reçoit le premier Legend Award",
       "sous_titre": "Un prix décerné une fois par décennie aux D.I.C.E. Awards",
       "article": [
@@ -76,6 +81,7 @@
     },
     {
       "verifiee": false,
+      "photo": "news/2026-11-19/photo-6.jpg",
       "titre": "Les lunettes Google et Samsung en rupture",
       "sous_titre": "Les précommandes sont épuisées chez Gentle Monster",
       "article": [
