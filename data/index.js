@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-18",
+    "titres": [
+      "Google Maps adopte Gemini",
+      "LoL : New Dawn",
+      "Windows 11 sur iPhone",
+      "Pattinson devient James Bond",
+      "Panne Microsoft record"
+    ]
+  },
+  {
     "date": "2026-11-17",
     "titres": [
       "Console transparente Arduview",
