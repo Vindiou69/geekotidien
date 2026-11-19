@@ -70,6 +70,19 @@
     <script type="text/javascript" src="https://app.mailjet.com/pas-nc-embedded-v2.js"></script>
     <p class="compteur" id="compteur"></p>
     <script>
+      (function () {
+        var bloc = document.querySelector(".newsletter");
+        if (!bloc || !("IntersectionObserver" in window)) return;
+        bloc.classList.add("js-reveal");
+        var obs = new IntersectionObserver(function (entrees) {
+          entrees.forEach(function (e) {
+            if (e.isIntersecting) { bloc.classList.add("vu"); obs.disconnect(); }
+          });
+        }, { threshold: 0.15 });
+        obs.observe(bloc);
+      })();
+    </script>
+    <script>
       fetch("data/abonnes.json", { cache: "no-store" })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
