@@ -149,7 +149,7 @@ function envoyerListe(mail, idListe) {
     Subject: mail.sujet,
     Title: mail.sujet,
     SenderEmail: EXPEDITEUR.Email,
-    Sender: EXPEDITEUR.Name,
+    SenderName: EXPEDITEUR.Name,
     Locale: 'fr_FR',
     ContactsListID: Number(idListe)
   });
