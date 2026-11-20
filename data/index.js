@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-20",
+    "titres": [
+      "Cyberattaque contre la Commission",
+      "Ancalagon revisité par Sauron",
+      "Macif sanctionnée par la CNIL",
+      "GTA 6 : 99 sur Metacritic",
+      "DDR6 : premières specs du JEDEC"
+    ]
+  },
+  {
     "date": "2026-11-19",
     "titres": [
       "Panne iCloud chez Apple",
