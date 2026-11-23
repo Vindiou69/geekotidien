@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-23",
+    "titres": [
+      "Fil dentaire glycémie",
+      "Fallout 1 remaster HD",
+      "Les Wachowski réclament Matrix",
+      "Premier vol habité chinois",
+      "Robots tueurs : pas d'interdiction"
+    ]
+  },
+  {
     "date": "2026-11-20",
     "titres": [
       "Cyberattaque contre la Commission",
