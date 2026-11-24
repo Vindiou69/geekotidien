@@ -70,7 +70,7 @@
       "titre": "Avengers Doomsday : dernier trailer",
       "verifiee": true,
       "sous_titre": "Robert Downey Jr. en Doctor Doom dans la nouvelle bande-annonce",
-      "photo": "news/2026-11-24/photo-5.jpg",
+      "photo": "news/2026-11-24/photo-6.jpg",
       "article": [
         "Une nouvelle bande-annonce d'Avengers : Doomsday montre Doctor Doom, joué par Robert Downey Jr., dont la présence avait été annoncée par Kevin Feige au Comic-Con de juillet 2024.",
         "On y voit aussi Steve Rogers, interprété par Chris Evans, les 4 Fantastiques, et une brève apparition de Kate Bishop et de Cyclope dans le combat final.",
@@ -89,7 +89,7 @@
       "titre": "BYD interdit dans l'UE",
       "verifiee": false,
       "sous_titre": "Une injonction préliminaire interdit la vente et la production du Ti7 dans l'UE",
-      "photo": "news/2026-11-24/photo-6.jpg",
+      "photo": "news/2026-11-24/photo-5.jpg",
       "article": [
         "Selon Génération NT, le tribunal de La Haye a interdit à BYD, le 20 novembre 2026, de vendre et de produire dans l'UE son SUV Fangchengbao Ti7, jugé trop proche du Land Rover Defender.",
         "La plainte vient de Jaguar Land Rover. Il s'agit d'une injonction préliminaire, avec des astreintes pouvant atteindre 10 millions d'euros. L'interdiction couvre aussi l'assemblage à Szeged, en Hongrie.",
