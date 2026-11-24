@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-24",
+    "titres": [
+      "GTA 6 : chiffres officiels",
+      "Cyberattaque au CHU Guadeloupe",
+      "Riemann résolu par Claude ?",
+      "Avengers Doomsday : dernier trailer",
+      "BYD interdit dans l'UE"
+    ]
+  },
+  {
     "date": "2026-11-23",
     "titres": [
       "Fil dentaire glycémie",
