@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-25",
+    "titres": [
+      "Uber Trains en France",
+      "Un réacteur nucléaire lunaire",
+      "GTA 6 avec Neuralink",
+      "Free traduit vos appels",
+      "Kodak SlideTag E Ink"
+    ]
+  },
+  {
     "date": "2026-11-24",
     "titres": [
       "GTA 6 : chiffres officiels",
