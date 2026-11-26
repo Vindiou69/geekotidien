@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-26",
+    "titres": [
+      "Galaxy Z TriFold 2",
+      "Artefacts Claude en apps",
+      "Silksong : Sea of Sorrow",
+      "Planète X2 hypothétique",
+      "Spielberg prépare un western"
+    ]
+  },
+  {
     "date": "2026-11-25",
     "titres": [
       "Uber Trains en France",
