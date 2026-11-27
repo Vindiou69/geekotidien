@@ -1,6 +1,16 @@
 // Liste des éditions disponibles (la plus récente en premier). Mis à jour à chaque nouvelle édition.
 window.EDITION_INDEX = [
   {
+    "date": "2026-11-27",
+    "titres": [
+      "Volvo teste AEON",
+      "Pigeons-drones avec implants",
+      "Cyberattaque contre la FIFA",
+      "Project Leonida démantelé",
+      "Huawei reconnu coupable"
+    ]
+  },
+  {
     "date": "2026-11-26",
     "titres": [
       "Galaxy Z TriFold 2",
